@@ -13,7 +13,9 @@ namespace leetcodeExplore
             //TestLinkedList();
             //TestPivotIndex();
             //TestDominantIndex();
-            TestPlusOne();
+            //TestPlusOne();
+            //TestFindDiagonalOrder();
+            TestSpiralOrder();
         }
 
         static void TestLinkedList()
@@ -171,39 +173,222 @@ namespace leetcodeExplore
         #endregion
 
         #region Diagonal Traverse
+        static void TestFindDiagonalOrder()
+        {
+            int[,] a = new int[,] {
+                {1, 2, 3,},
+                {4, 5, 6},
+                { 7, 8, 9}
+            };
+            int[,] b = new int[,]{
+                {3},{2}
+            };
+            //var r1 = FindDiagonalOrder(a);
+            var r1 = FindDiagonalOrder(b);
+            foreach (var item in r1)
+            {
+                Console.WriteLine(item);
+            }
+            Console.ReadKey();
+        }
         static int[] FindDiagonalOrder(int[,] matrix)
         {
             int y_len = matrix.GetLength(0);
             int x_len = matrix.GetLength(1);
-            //if (x_len == 0 || y_len == 0)
-               
+            if (x_len == 0 && y_len == 0)
+                return new int[0];
             int total_len = x_len * y_len;
             int[] result = new int[total_len];
 
-            int x = 0;
-            int y = 0;
-            bool upperRight = true;
-            for (int i = 0; i < total_len; i++)
+            int direction = 0;
+            if (x_len == 1)
+                direction = 1;
+            XY xy = new XY { x = 0, y = 0 };
+            result[0] = matrix[xy.y, xy.x];
+            for (int i = 1; i < total_len; i++)
             {
-                while(x < 0 || y < 0){
-                    upperRight = upperRight == true ? false : true;
-                    if (upperRight)
-                    {
-                        y--;
-                        x++;
-                    }
-                    else
-                    {
-                        y++;
-                        x--;
-                    }
+                if ((xy.y == 0 && direction == 2 && xy.x < (x_len - 1)) || (xy.y == (y_len - 1) && direction == 3))
+                {
+                    direction = 0;
                 }
-                int val = matrix[y, x];
-                result[i] = val;
+                else if ((xy.x == 0 && direction == 3) || (xy.x == (x_len - 1) && direction == 2))
+                {
+                    direction = 1;
+                }
+                else if (xy.x < (x_len - 1) && xy.y > 0 && direction < 2)
+                {
+                    direction = 2;
+                }
+                else if (xy.x > 0 && xy.y < (y_len - 1) && direction < 2)
+                {
+                    direction = 3;
+                }
+
+                switch (direction)
+                {
+                    case 0:
+                        xy = ToRight(xy);
+                        break;
+                    case 1:
+                        xy = ToDown(xy);
+                        break;
+                    case 2:
+                        xy = ToRightUp(xy);
+                        break;
+                    case 3:
+                        xy = ToLeftDown(xy);
+                        break;
+                }
+                try
+                {
+                    result[i] = matrix[xy.y, xy.x];
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
             }
             return result;
-         
+        }
+
+        //0
+        static XY ToRight(XY xy)
+        {
+            xy.x++;
+            return xy;
+        }
+        //1
+        static XY ToDown(XY xy)
+        {
+            xy.y++;
+            return xy;
+        }
+        //2
+        static XY ToRightUp(XY xy)
+        {
+            xy.x++;
+            xy.y--;
+            return xy;
+        }
+        //3
+        static XY ToLeftDown(XY xy)
+        {
+            xy.x--;
+            xy.y++;
+            return xy;
+        }
+
+        public class XY
+        {
+            public int x { get; set; }
+            public int y { get; set; }
+        }
+        #endregion
+
+        #region Spiral Matrix
+        static void TestSpiralOrder()
+        {
+            int[,] a = new int[,] {
+                {1, 2, 3,},
+                {4, 5, 6},
+                { 7, 8, 9}
+            };
+
+            int[,] b = new int[,] {
+                {1, 2, 3, 4},
+                {5, 6,7,8 },
+                { 9,10,11,12}
+            };
+            var r1 = SpiralOrder(b);
+            foreach (var item in r1)
+            {
+                Console.WriteLine(item);
+            }
+            Console.ReadKey();
+        }
+        public static IList<int> SpiralOrder(int[,] matrix)
+        {
+
+            int min_x = 0, min_y = 1;
+            int max_y = matrix.GetLength(0);
+            int max_x = matrix.GetLength(1);
+            if (max_y == 0 && max_x == 0)
+                return new int[0];
+            int direction = 0;
+            int total_len = max_x * max_y;
+            int[] result = new int[total_len];
+            XY xy = new XY { x = 0, y = 0 };
+            result[0] = matrix[xy.y, xy.x];
+            for (int i = 1; i < total_len; i++)
+            {
+                //right
+                if (direction == 3 && xy.y == min_y)
+                {
+                    direction = 0;
+                    min_y++;
+                }
+                //down
+                else if (direction == 0 && xy.x == (max_x - 1))
+                {
+                    direction = 1;
+                    max_x--;
+                }
+                //left
+                else if (direction == 1 && xy.y == (max_y - 1))
+                {
+                    direction = 2;
+                    max_y--;
+                }
+                //up
+                else if (direction == 2 && xy.x == min_x)
+                {
+                    direction = 3;
+                    min_x++;
+                }
+                switch (direction)
+                {
+                    case 0:
+                        xy = ToRight(xy);
+                        break;
+                    case 1:
+                        xy = ToDown(xy);
+                        break;
+                    case 2:
+                        xy = ToLeft(xy);
+                        break;
+                    case 3:
+                        xy = ToUp(xy);
+                        break;
+                }
+
+                try
+                {
+                    result[i] = matrix[xy.y, xy.x];
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+            return result;
+        }
+
+
+        //2
+        static XY ToLeft(XY xy)
+        {
+            xy.x--;
+            return xy;
+        }
+        //3
+        static XY ToUp(XY xy)
+        {
+            xy.y--;
+            return xy;
         }
         #endregion
     }
+
 }
