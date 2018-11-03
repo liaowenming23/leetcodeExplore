@@ -15,9 +15,11 @@ namespace leetcodeExplore
             //TestDominantIndex();
             //TestPlusOne();
             //TestFindDiagonalOrder();
-            TestSpiralOrder();
+            //TestSpiralOrder();
+            TestGenerate();
         }
 
+        #region LinkedList
         static void TestLinkedList()
         {
 
@@ -59,6 +61,7 @@ namespace leetcodeExplore
             //Console.WriteLine($"e : {e}");
 
         }
+        #endregion
 
         #region Find Pivot Index
         static void TestPivotIndex()
@@ -389,6 +392,44 @@ namespace leetcodeExplore
             return xy;
         }
         #endregion
+
+        #region Generate
+        public static void TestGenerate()
+        {
+            var a = Generate(0);
+            foreach (var row in a)
+            {
+                string str = string.Empty;
+                foreach (var col in row)
+                {
+                    str += $"{col},";
+                }
+                Console.WriteLine(str);
+            }
+            Console.ReadKey();
+        }
+
+        public static IList<IList<int>> Generate(int numRows)
+        {
+            int[][] result = new int[numRows][];
+            for (int i = 0; i < numRows; i++)
+            {
+                result[i] = new int[i + 1];
+                for (int j = 0; j < (i + 1); j++)
+                {
+                    if ((i - 1) <= 0 || (j - 1) < 0 || (j + 1) > i)
+                    {
+                        result[i][j] = 1;
+                    }
+                    else
+                    {
+                        result[i][j] = result[i - 1][j - 1] + result[i - 1][j];
+                    }
+                }
+            }
+            return result;
+        }
     }
+    #endregion
 
 }
