@@ -6,13 +6,12 @@ namespace leetcodeExploreTest.ArrayAndString
 {
     public class AddBinaryTest
     {
-        [Fact]
-        public void Add_Binary_Test()
+        [Theory]
+        [InlineData("11","1","100")]
+        [InlineData("1010", "1011", "10101")]
+        public void Add_Binary_Test(string a,string b, string expected)
         {
             //Arrange
-            string a = "11";
-            string b = "1";
-            string expected = "100";
 
             //Act
             var target = new AddBinary();

@@ -1,77 +1,63 @@
 ﻿using System;
 using System.Text;
+using System.Collections;
 namespace leetcodeExplore.ArrayAndString
 {
     public class AddBinary
     {
         public string Add_Binary(string a, string b)
         {
-            if (a.Length <= 0 && b.Length <= 0)
+            int aLen = a.Length;
+            int bLen = b.Length;
+            if (aLen == 0 && bLen == 0)
                 return string.Empty;
-
-            int maxLen = 0;
-            int minLen = 0;
-            char[] maxChar;
-            char[] minChar;
-            if (a.Length > b.Length)
-            {
-                maxLen = a.Length;
-                minLen = b.Length;
-                maxChar = a.ToCharArray();
-                minChar = b.ToCharArray();
+            int len;
+            if (aLen > bLen){
+                len = aLen;
+            }else{
+                len = bLen;
             }
-            else
-            {
-                maxLen = b.Length;
-                minLen = a.Length;
-                maxChar = a.ToCharArray();
-                minChar = b.ToCharArray();
-            }
+            Stack stack = new Stack();
             bool carry = false;
-            StringBuilder result = new StringBuilder();
-            for (int i = 0; i < maxLen; i++)
+            for (int i = len - 1; i >= 0; i--)
             {
-                if (i < minLen)
+                int bTemp = 0;
+                int aTemp = 0;
+                if (aLen > 0)
+                    aTemp =  (int)char.GetNumericValue(a[aLen - 1]);
+                if (bLen > 0)
+                    bTemp = (int)char.GetNumericValue(b[bLen - 1]);
+                var temp = aTemp + bTemp;
+                if (carry)
+                    temp++;
+                if (temp == 3)
                 {
-                    var temp = (int)maxChar[i] + (int)minChar[i];
-                    if (carry)
-                        temp++;
-                    if (temp == 3)
-                    {
-                        result.Append("1");
-                        carry = true;
-                    }
-                    else if (temp == 2)
-                    {
-                        result.Append("0");
-                        carry = true;
-                    }
-                    else if (temp == 1)
-                    {
-                        result.Append("1");
-                        carry = false;
-                    }
-                    else if (temp == 0)
-                    {
-                        result.Append("0");
-                        carry = false;
-                    }
-                }else{
-                    if(carry){
-                        var temp = (int)maxChar[i] + 1;
-                        if(temp == 2){
-                            result.Append("0");
-                        }else if(temp == 1){
-                            result.Append("1");
-                            carry = false;
-                        }else if(temp == 0){
-                            result.Append("0");
-                            carry = false;
-                        }
-                    }else{
-                        result.Append(maxChar[i].ToString());
-                    }
+                    stack.Push('1');
+                    carry = true;
                 }
+                else if (temp == 2)
+                {
+                    stack.Push('0');
+                    carry = true;
+                }
+                else if (temp == 1)
+                {
+                    stack.Push('1');
+                    carry = false;
+                }
+                else if (temp == 0)
+                {
+                    stack.Push('0');
+                    carry = false;
+                }
+                aLen--;
+                bLen--;
+            }
+            StringBuilder result = new StringBuilder();
+            if (carry)
+                result.Append('1');
+            while(stack.Count > 0){
+                result.Append(stack.Pop());
             }
             return result.ToString();
         }

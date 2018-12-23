@@ -1,6 +1,7 @@
 ﻿using System;
 using leetcodeExplore.lib;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace leetcodeExplore
 {
@@ -16,7 +17,10 @@ namespace leetcodeExplore
             //TestPlusOne();
             //TestFindDiagonalOrder();
             //TestSpiralOrder();
-            TestGenerate();
+            //TestGenerate();
+            //StackTest();
+            PadLeftTest();
+            Console.ReadKey();
         }
 
         #region LinkedList
@@ -429,7 +433,25 @@ namespace leetcodeExplore
             }
             return result;
         }
+
+        public static void StackTest()
+        {
+            string a = "112233";
+            Stack stack = new Stack();
+            stack.Push(a.ToCharArray());
+            while (stack.Count > 0)
+            {
+                Console.WriteLine(stack.Pop());
+            }
+        }
+
+        public static void PadLeftTest(){
+            string a = "1";
+
+            Console.WriteLine(a);
+        }
     }
     #endregion
 
+   
 }
