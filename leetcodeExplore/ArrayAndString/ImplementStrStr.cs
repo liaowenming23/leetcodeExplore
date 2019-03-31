@@ -5,35 +5,35 @@ namespace leetcodeExplore.ArrayAndString
     {
         public int StrStr(string haystack, string needle)
         {
-            int haystackLen = haystack.Length;
             int needleLen = needle.Length;
-            int indexOf = -1;
-            int compareInfex = 0;
+            int haystackLen = haystack.Length;
+            if (needleLen == 0)
+                return 0;
+            int result = 0;
+            bool compared = false;
             for (int i = 0; i < haystackLen; i++)
             {
-                if(haystack[i] == needle[compareInfex] && indexOf < 0)
+                if(haystack[i] == needle[0])
                 {
-                    indexOf = i;
-                    compareInfex++;
-                }
-                else
-                {
-                    if(haystack[i] == needle[compareInfex])
+                    if ((i + needleLen) > haystackLen)
+                        return -1;
+
+                    compared = true;
+                    result = i;
+
+                    for (int j = 0; j < needleLen; j++)
                     {
-                        compareInfex++;
-                    }
-                    else
-                    {
-                        indexOf = -1;
-                        compareInfex = 0;
+
+                        if (haystack[i + j] != needle[j])
+                            compared = false;
+                         
                     }
                 }
-                if(compareInfex >= needleLen)
-                {
+
+                if (compared)
                     break;
-                }
             }
-            return indexOf;
+            return compared ? result : - 1;
         }
     }
 }
