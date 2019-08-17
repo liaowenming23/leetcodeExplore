@@ -1,6 +1,7 @@
 ﻿using System;
 using Xunit;
 using leetcodeExplore.ArrayAndString;
+
 namespace leetcodeExploreTest.ArrayAndString
 {
     public class ArrayPairSumTest
