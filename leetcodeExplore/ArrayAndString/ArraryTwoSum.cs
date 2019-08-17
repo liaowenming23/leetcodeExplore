@@ -23,7 +23,7 @@ namespace leetcodeExplore.ArrayAndString
                     index2 = i + 1;
                     break;
                 }
-                map.Add(numbers[i], i);
+                map.TryAdd(numbers[i], i);
             }
             return new int[] { index1, index2 };
         }
