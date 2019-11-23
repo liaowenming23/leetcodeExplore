@@ -53,7 +53,7 @@ namespace leetcodeExploreTest
     [InlineData ("mississippi", "issip", 4)]
     public void StrStrTest (string haystack, string needle, int expected)
     {
-      var actual = _target.StrStr(haystack, needle);
+      var actual = _target.StrStr (haystack, needle);
 
       Assert.Equal (expected, actual);
     }
@@ -155,5 +155,13 @@ namespace leetcodeExploreTest
       }
     }
 
+    [Theory]
+    [InlineData (new int[] { 0, 1, 0, 3, 12 }, new int[] { 1, 3, 12, 0, 0 })]
+    [InlineData (new int[] { 0, 0, 1 }, new int[] { 1, 0, 0 })]
+    public void MoveZeroesTest (int[] input, int[] expected)
+    {
+      _target.MoveZeroes (input);
+      Assert.Equal (input, expected);
+    }
   }
 }

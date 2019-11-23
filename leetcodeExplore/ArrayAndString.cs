@@ -376,5 +376,30 @@ namespace leetcodeExplore
         j--;
       }
     }
+
+    public void MoveZeroes (int[] nums)
+    {
+      int len = nums.Length;
+      if (len == 0)
+        return;
+
+      int i = 0, j = len - 1;
+
+      while (i < j)
+      {
+        if (nums[i] != 0)
+        {
+          i++;
+          continue;
+        }
+
+        for (int k = i; k < j; k++)
+        {
+          nums[k] = nums[k + 1];
+        }
+        nums[j] = 0;
+        j--;
+      }
+    }
   }
 }
