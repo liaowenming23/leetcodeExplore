@@ -1,5 +1,4 @@
 ﻿using System;
-using leetcodeExplore.lib;
 using System.Collections.Generic;
 using System.Collections;
 
@@ -27,7 +26,7 @@ namespace leetcodeExplore
         static void TestLinkedList()
         {
 
-            MyLinkedList l = new MyLinkedList();
+            LinkedList l = new LinkedList();
             l.AddAtHead(38);
             l.AddAtHead(45);
             l.DeleteAtIndex(2);
