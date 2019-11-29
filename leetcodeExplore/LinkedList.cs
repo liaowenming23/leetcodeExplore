@@ -1,3 +1,5 @@
+using System.Collections;
+
 namespace leetcodeExplore
 {
   public class LinkedList
@@ -5,7 +7,6 @@ namespace leetcodeExplore
     #region Design Linked List
     public SinglyListNode node;
     public int Count = 0;
-    
 
     /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
     public int Get (int index)
@@ -126,11 +127,29 @@ namespace leetcodeExplore
 
     public bool HasCycle (ListNode head)
     {
-      bool[] test = new bool[256];
-      var x = head;
-      return true;
-    }
+      bool result = false;
 
+      if (head == null)
+        return result;
+      Hashtable ht = new Hashtable ();
+
+      ht.Add (head.GetHashCode (), head);
+      var next = head.next;
+      while (next != null)
+      {
+        if (ht.ContainsKey (next.GetHashCode ()))
+        {
+          next = null;
+          result = true;
+        }
+        else
+        {
+          ht.Add (next.GetHashCode (), next);
+          next = next.next;
+        }
+      }
+      return result;
+    }
   }
 
   public class ListNode
