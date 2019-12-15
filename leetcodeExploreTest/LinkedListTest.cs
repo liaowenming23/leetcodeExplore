@@ -68,7 +68,7 @@ namespace leetcodeExploreTest
     {
       ListNode node = new ListNode (1);
       node.next = new ListNode (2);
-      node.next.next = node.next;
+      node.next.next = node;
 
       var expected = node;
 
@@ -86,12 +86,51 @@ namespace leetcodeExploreTest
       node.next.next.next.next = new ListNode (5);
       node.next.next.next.next.next = new ListNode (6);
       node.next.next.next.next.next.next = new ListNode (7);
-      node.next.next.next.next.next.next.next = node.next
+      node.next.next.next.next.next.next.next = node.next;
 
       var expected = node.next;
 
       var actual = _target.DetectCycle (node);
       Assert.Equal (expected, actual);
+    }
+
+    [Fact]
+    public void IntersectionLinkedList_Test1 ()
+    {
+      var intersectionNode = new ListNode (8);
+      intersectionNode.next = new ListNode (4);
+      intersectionNode.next.next = new ListNode (5);
+
+      ListNode node1 = new ListNode (4);
+      node1.next = new ListNode (1);
+      node1.next.next = intersectionNode;
+
+      ListNode node2 = new ListNode (5);
+      node2.next = new ListNode (0);
+      node2.next.next = new ListNode (1);
+      node2.next.next.next = intersectionNode;
+
+      var expected = intersectionNode;
+
+      var actual = _target.GetIntersectionNode (node1, node2);
+      Assert.Equal (expected, actual);
+    }
+
+    [Fact]
+    public void IntersectionLinkedList_Test2 ()
+    {
+      ListNode node1 = new ListNode(2);
+      node1.next = new ListNode(6);
+      node1.next.next = new ListNode(4);
+
+      ListNode node2 = new ListNode(1);
+      node1.next = new ListNode(5);
+
+      ListNode expected = null;
+
+      var actual = _target.GetIntersectionNode(node1,node2);
+
+      Assert.Equal(expected, actual);
     }
   }
 }

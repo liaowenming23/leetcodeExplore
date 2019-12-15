@@ -176,6 +176,62 @@ namespace leetcodeExplore
       }
       return fast;
     }
+
+    public ListNode GetIntersectionNode (ListNode headA, ListNode headB)
+    {
+      ListNode result;
+      var c1 = GetCount (headA);
+      var c2 = GetCount (headB);
+      int totalCount = 0;
+      if (c1 > c2)
+      {
+        totalCount = c1 - c2;
+        result = GetIntersection (totalCount, headA, headB);
+      }
+      else
+      {
+        totalCount = c2 - c1;
+        result = GetIntersection (totalCount, headB, headA);
+      }
+      return result;
+
+      ListNode GetIntersection (int count, ListNode head1, ListNode head2)
+      {
+        var cur1 = head1;
+        var cur2 = head2;
+
+        for (int i = 0; i < count; i++)
+        {
+          if (cur1 == null)
+            return null;
+
+          cur1 = cur1.next;
+        }
+
+        while (cur1 != null && cur2 != null)
+        {
+          if (cur1 == cur2)
+            return cur1;
+
+          cur1 = cur1.next;
+          cur2 = cur2.next;
+        }
+        return null;
+      }
+
+      int GetCount (ListNode node)
+      {
+        int count = 0;
+        var current = node;
+        while (current != null)
+        {
+          count++;
+          current = current.next;
+        }
+        return count;
+      }
+
+    }
   }
 
   public class ListNode
