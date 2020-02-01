@@ -119,18 +119,60 @@ namespace leetcodeExploreTest
     [Fact]
     public void IntersectionLinkedList_Test2 ()
     {
-      ListNode node1 = new ListNode(2);
-      node1.next = new ListNode(6);
-      node1.next.next = new ListNode(4);
+      ListNode node1 = new ListNode (2);
+      node1.next = new ListNode (6);
+      node1.next.next = new ListNode (4);
 
-      ListNode node2 = new ListNode(1);
-      node1.next = new ListNode(5);
+      ListNode node2 = new ListNode (1);
+      node1.next = new ListNode (5);
 
       ListNode expected = null;
 
-      var actual = _target.GetIntersectionNode(node1,node2);
+      var actual = _target.GetIntersectionNode (node1, node2);
 
-      Assert.Equal(expected, actual);
+      Assert.Equal (expected, actual);
+    }
+
+    [Fact]
+    public void RemoveNthFromEnd_Test1 ()
+    {
+      ListNode input = new ListNode (1);
+      input.next = new ListNode (2);
+      input.next.next = new ListNode (3);
+      input.next.next.next = new ListNode (4);
+      input.next.next.next.next = new ListNode (5);
+
+      var expected = new ListNode (1);
+      expected.next = new ListNode (2);
+      expected.next.next = new ListNode (3);
+      expected.next.next.next = new ListNode (5);
+
+      var actual = _target.RemoveNthFromEnd (input, 2);
+
+      while (expected != null)
+      {
+        Assert.Equal (expected.val, actual.val);
+        expected = expected.next;
+        actual = actual.next;
+      }
+    }
+
+    [Fact]
+    public void RemoveNthFromEnd_Test ()
+    {
+      ListNode input = new ListNode (1);
+      input.next = new ListNode(2);
+
+      ListNode expected = new ListNode(2);
+
+      var actual = _target.RemoveNthFromEnd (input, 2);
+
+      while (expected != null)
+      {
+        Assert.Equal (expected.val, actual.val);
+        expected = expected.next;
+        actual = actual.next;
+      }
     }
   }
 }

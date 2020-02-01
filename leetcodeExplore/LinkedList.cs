@@ -232,6 +232,35 @@ namespace leetcodeExplore
       }
 
     }
+
+    public ListNode RemoveNthFromEnd (ListNode head, int n)
+    {
+      ListNode first = new ListNode(0);
+      first.next = head;
+      ListNode secend = head;
+      for (int i = 0; i < n; i++)
+      {
+        if (secend == null)
+          return null;
+        secend = secend.next;
+      }
+      ListNode r = first;
+      while (true)
+      {
+        if (secend == null)
+        {
+          first.next = first.next.next;
+          break;
+        }
+        else
+        {
+          first = first.next;
+          secend = secend.next;
+        }
+      }
+
+      return r.next;
+    }
   }
 
   public class ListNode
