@@ -161,9 +161,9 @@ namespace leetcodeExploreTest
     public void RemoveNthFromEnd_Test ()
     {
       ListNode input = new ListNode (1);
-      input.next = new ListNode(2);
+      input.next = new ListNode (2);
 
-      ListNode expected = new ListNode(2);
+      ListNode expected = new ListNode (2);
 
       var actual = _target.RemoveNthFromEnd (input, 2);
 
@@ -172,6 +172,29 @@ namespace leetcodeExploreTest
         Assert.Equal (expected.val, actual.val);
         expected = expected.next;
         actual = actual.next;
+      }
+    }
+
+    [Fact]
+    public void ReverseList_Test ()
+    {
+      ListNode input = new ListNode (1);
+      input.next = new ListNode (2);
+      input.next.next = new ListNode (3);
+      input.next.next.next = new ListNode (4);
+      input.next.next.next.next = new ListNode (5);
+
+      ListNode expected = new ListNode (5);
+      expected.next = new ListNode (4);
+      expected.next.next = new ListNode (3);
+      expected.next.next.next = new ListNode (2);
+      expected.next.next.next.next = new ListNode (1);
+
+      var actual = _target.ReverseList (input);
+
+      for (int i = 0; i < 5; i++)
+      {
+        Assert.Equal (expected.val, actual.val);
       }
     }
   }

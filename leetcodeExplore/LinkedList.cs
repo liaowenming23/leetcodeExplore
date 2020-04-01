@@ -2,6 +2,16 @@ using System.Collections;
 
 namespace leetcodeExplore
 {
+  public class ListNode
+  {
+    public int val;
+    public ListNode next;
+    public ListNode (int x)
+    {
+      val = x;
+      next = null;
+    }
+  }
   public class LinkedList
   {
     #region Design Linked List
@@ -235,7 +245,7 @@ namespace leetcodeExplore
 
     public ListNode RemoveNthFromEnd (ListNode head, int n)
     {
-      ListNode first = new ListNode(0);
+      ListNode first = new ListNode (0);
       first.next = head;
       ListNode secend = head;
       for (int i = 0; i < n; i++)
@@ -261,16 +271,19 @@ namespace leetcodeExplore
 
       return r.next;
     }
-  }
 
-  public class ListNode
-  {
-    public int val;
-    public ListNode next;
-    public ListNode (int x)
+    public ListNode ReverseList (ListNode head)
     {
-      val = x;
-      next = null;
+      ListNode last = null;
+      ListNode curr = head;
+      while (curr != null)
+      {
+        var temp = curr.next;
+        curr.next = last;
+        last = curr;
+        curr = temp;
+      }
+      return last;
     }
   }
 }
