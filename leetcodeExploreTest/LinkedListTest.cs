@@ -195,7 +195,46 @@ namespace leetcodeExploreTest
       for (int i = 0; i < 5; i++)
       {
         Assert.Equal (expected.val, actual.val);
+        expected = expected.next;
+        actual = actual.next;
       }
+    }
+
+    [Fact]
+    public void RemoveElements_Test1 ()
+    {
+      ListNode input = new ListNode (1);
+      input.next = new ListNode (2);
+      input.next.next = new ListNode (3);
+      input.next.next.next = new ListNode (6);
+      input.next.next.next.next = new ListNode (4);
+      input.next.next.next.next.next = new ListNode (5);
+      input.next.next.next.next.next.next = new ListNode (6);
+
+      ListNode expected = new ListNode (1);
+      expected.next = new ListNode (2);
+      expected.next.next = new ListNode (3);
+      expected.next.next.next = new ListNode (4);
+      expected.next.next.next.next = new ListNode (5);
+
+      var actual = _target.RemoveElements (input, 6);
+
+      for (int i = 0; i < 5; i++)
+      {
+        Assert.Equal (expected.val, actual.val);
+        expected = expected.next;
+        actual = actual.next;
+      }
+    }
+
+    [Fact]
+    public void RemoveElements_Test2 ()
+    {
+      ListNode input = new ListNode (1);
+
+      var actual = _target.RemoveElements (input, 1);
+
+      Assert.Equal (null, actual);
     }
   }
 }
