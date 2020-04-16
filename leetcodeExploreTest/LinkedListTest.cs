@@ -236,5 +236,30 @@ namespace leetcodeExploreTest
 
       Assert.Equal (null, actual);
     }
+
+    [Fact]
+    public void OddEvenList_Test ()
+    {
+      ListNode input = new ListNode (1);
+      input.next = new ListNode (2);
+      input.next.next = new ListNode (3);
+      input.next.next.next = new ListNode (4);
+      input.next.next.next.next = new ListNode (5);
+
+      ListNode expected = new ListNode (1);
+      expected.next = new ListNode (3);
+      expected.next.next = new ListNode (5);
+      expected.next.next.next = new ListNode (2);
+      expected.next.next.next.next = new ListNode (4);
+
+      var actual = _target.OddEvenList (input);
+
+      for (int i = 0; i < 5; i++)
+      {
+        Assert.Equal (expected.val, actual.val);
+        expected = expected.next;
+        actual = actual.next;
+      }
+    }
   }
 }
