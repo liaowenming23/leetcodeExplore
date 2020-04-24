@@ -261,5 +261,35 @@ namespace leetcodeExploreTest
         actual = actual.next;
       }
     }
+
+    [Fact]
+    public void IsPalindrome_Test1 ()
+    {
+      ListNode input = new ListNode (1);
+      input.next = new ListNode (2);
+      input.next.next = new ListNode (2);
+      input.next.next.next = new ListNode (1);
+
+      var expected = true;
+
+      var actual = _target.IsPalindrome (input);
+
+      Assert.Equal (expected, actual);
+    }
+
+    [Fact]
+    public void IsPalindrome_Test2 ()
+    {
+      ListNode input = new ListNode (1);
+      input.next = new ListNode (2);
+      input.next.next = new ListNode (2);
+
+      var expected = false;
+
+      var actual = _target.IsPalindrome (input);
+
+      Assert.Equal (expected, actual);
+    }
+
   }
 }
