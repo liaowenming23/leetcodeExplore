@@ -303,5 +303,34 @@ namespace leetcodeExploreTest
       Assert.Equal (expected, actual);
     }
 
+    [Fact]
+    public void MergeTwoLists_Test ()
+    {
+      var l1 = new ListNode (1);
+      l1.next = new ListNode (2);
+      l1.next.next = new ListNode (4);
+
+      var l2 = new ListNode (1);
+      l2.next = new ListNode (3);
+      l2.next.next = new ListNode (4);
+
+      var expected = new ListNode (1);
+      expected.next = new ListNode (1);
+      expected.next.next = new ListNode (2);
+      expected.next.next.next = new ListNode (3);
+      expected.next.next.next.next = new ListNode (4);
+      expected.next.next.next.next.next = new ListNode (4);
+
+      var actual = _target.MergeTwoLists (l1, l2);
+
+      for (int i = 0; i < 6; i++)
+      {
+        Assert.Equal (expected.val, actual.val);
+
+        expected = expected.next;
+        actual = actual.next;
+      }
+    }
+
   }
 }
