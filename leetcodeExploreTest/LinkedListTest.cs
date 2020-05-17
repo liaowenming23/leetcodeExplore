@@ -13,6 +13,18 @@ namespace leetcodeExploreTest
     }
 
     [Fact]
+    public void LinkedList_Test1 ()
+    {
+      _target.AddAtIndex (0, 10);
+      _target.AddAtIndex (0, 20);
+      _target.AddAtIndex (1, 30);
+      var actual = _target.Get (0);
+
+      var expected = 20;
+      Assert.Equal (expected, actual);
+    }
+
+    [Fact]
     public void HasCycle_Test1 ()
     {
       ListNode node = new ListNode (3);

@@ -65,9 +65,21 @@ namespace leetcodeExplore
     /** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
     public void AddAtIndex (int index, int val)
     {
-      var tempList = this.node;
+      if (index == 0)
+      {
+        this.AddAtHead (val);
+        return;
+      }
+      if (index == Count)
+      {
+        this.AddAtTail (val);
+        return;
+
+      }
+
       if (index < Count)
       {
+        var tempList = this.node;
         for (int i = 0; i < index; i++)
         {
           if (i == (index - 1))
@@ -82,18 +94,7 @@ namespace leetcodeExplore
           }
         }
       }
-      else if (index == 0)
-      {
-        this.AddAtHead (val);
-        return;
-      }
-      else if (index == Count)
-      {
-        this.AddAtTail (val);
-        return;
-      }
-      else
-        return;
+
       Count++;
     }
 
