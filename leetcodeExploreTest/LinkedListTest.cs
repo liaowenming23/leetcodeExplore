@@ -332,5 +332,26 @@ namespace leetcodeExploreTest
       }
     }
 
+    [Fact]
+    public void AddTwoNumbers_Test ()
+    {
+      var l1 = new ListNode (1);
+      l1.next = new ListNode (8);
+
+      var l2 = new ListNode (0);
+
+      var expected = new ListNode (1);
+      expected.next = new ListNode (8);
+
+      var actual = _target.AddTwoNumbers (l1, l2);
+
+      for (int i = 0; i < 2; i++)
+      {
+        Assert.Equal (expected.val, actual.val);
+        expected = expected.next;
+        actual = actual.next;
+      }
+    }
+
   }
 }
