@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using leetcodeExplore;
+using leetcodeExplore.model;
 using Xunit;
 
 namespace leetcodeExploreTest
