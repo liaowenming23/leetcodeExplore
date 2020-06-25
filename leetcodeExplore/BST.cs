@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using leetcodeExplore.model;
 
 namespace leetcodeExplore
@@ -22,6 +24,56 @@ namespace leetcodeExplore
             if (!ValidBST (node.right, val, max_limit)) return false;
 
             return true;
+        }
+
+        public BST ()
+        {
+
+        }
+
+        public BST (TreeNode root)
+        {
+            var list = new List<int> ();
+            var stack = new Stack ();
+
+        }
+    }
+
+    public class BSTIterator
+    {
+        private Stack<TreeNode> _stack;
+        public BSTIterator (TreeNode root)
+        {
+            _stack = new Stack<TreeNode> ();
+            this.leftToStack (root);
+        }
+
+        private void leftToStack (TreeNode root)
+        {
+            while (root != null)
+            {
+                _stack.Push (root);
+                root = root.left;
+            }
+        }
+
+        /** @return the next smallest number */
+        public int Next ()
+        {
+            var next_node = _stack.Pop ();
+
+            if (next_node.right != null)
+            {
+                this.leftToStack (next_node.right);
+            }
+
+            return next_node.val;
+        }
+
+        /** @return whether we have a next smallest number */
+        public bool HasNext ()
+        {
+            return _stack.Count > 0;
         }
     }
 }
