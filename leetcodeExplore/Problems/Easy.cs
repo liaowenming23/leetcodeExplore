@@ -31,5 +31,38 @@ namespace leetcodeExplore.Problems
             return max;
         }
 
+        public int MaxSubArray(int[] nums)
+        {
+            int max = int.MinValue, temp = 0;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (temp < 0)
+                    temp = nums[i];
+                else
+                    temp += nums[i];
+
+                if (temp > max)
+                    max = temp;
+            }
+            return max;
+        }
+
+        public int LengthOfLastWord(string s)
+        {
+            var strArr = s.ToCharArray();
+            int temp = 0, len = 0;
+            for (int i = 0; i < strArr.Length; i++)
+            {
+                if (strArr[i] == ' ')
+                    temp = 0;
+                else
+                    temp++;
+
+                if (temp > 0)
+                    len = temp;
+            }
+            return len;
+        }
     }
 }
