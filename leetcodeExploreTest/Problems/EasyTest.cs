@@ -45,5 +45,15 @@ namespace leetcodeExploreTest.Problems
             var actual = _target.LengthOfLastWord(s);
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData(2, 2)]
+        [InlineData(3, 3)]
+        [InlineData(4, 5)]
+        public void ClimbStairsTest(int n, int expected)
+        {
+            var actual = _target.ClimbStairs(n);
+            Assert.Equal(expected, actual);
+        }
     }
 }
