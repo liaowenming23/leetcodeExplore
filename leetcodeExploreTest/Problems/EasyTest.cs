@@ -1,3 +1,4 @@
+using leetcodeExplore.model;
 using leetcodeExplore.Problems;
 using Xunit;
 
@@ -54,6 +55,47 @@ namespace leetcodeExploreTest.Problems
         {
             var actual = _target.ClimbStairs(n);
             Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void DeleteDuplicatesTest_1()
+        {
+            var head = new ListNode(1);
+            head.next = new ListNode(1);
+            head.next.next = new ListNode(2);
+
+            var expected = new ListNode(1);
+            expected.next = new ListNode(2);
+
+            var actual = _target.DeleteDuplicates(head);
+            Assert.True(VerifyListNodeVal(expected, actual));
+        }
+
+        [Fact]
+        public void DeleteDuplicatesTest_2()
+        {
+            var head = new ListNode(1);
+            head.next = new ListNode(1);
+            head.next.next = new ListNode(1);
+
+            var expected = new ListNode(1);
+
+            var actual = _target.DeleteDuplicates(head);
+            Assert.True(VerifyListNodeVal(expected, actual));
+        }
+        
+        private bool VerifyListNodeVal(ListNode expected, ListNode actual)
+        {
+            bool result = true;
+            while (expected is not null && actual is not null && result)
+            {
+                if (!expected.val.Equals(actual.val))
+                    result = false;
+
+                expected = expected.next;
+                actual = actual.next;
+            }
+            return result;
         }
     }
 }

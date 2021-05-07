@@ -1,3 +1,5 @@
+using leetcodeExplore.model;
+
 namespace leetcodeExplore.Problems
 {
     public class Easy
@@ -83,6 +85,19 @@ namespace leetcodeExplore.Problems
             temp[i] = climbStairs(i + 1, n, temp) + climbStairs(i + 2, n, temp);
 
             return temp[i];
+        }
+
+        public ListNode DeleteDuplicates(ListNode head)
+        {
+            var temp = head;
+            while (temp != null && temp.next != null)
+            {
+                if (temp.val.Equals(temp.next.val))
+                    temp.next = temp.next.next;
+                else
+                    temp = temp.next;
+            }
+            return head;
         }
     }
 }
