@@ -83,7 +83,7 @@ namespace leetcodeExploreTest.Problems
             var actual = _target.DeleteDuplicates(head);
             Assert.True(VerifyListNodeVal(expected, actual));
         }
-        
+
         private bool VerifyListNodeVal(ListNode expected, ListNode actual)
         {
             bool result = true;
@@ -96,6 +96,21 @@ namespace leetcodeExploreTest.Problems
                 actual = actual.next;
             }
             return result;
+        }
+
+        [Theory]
+        [InlineData(new int[6] { 1, 2, 3, 0, 0, 0 }, 3, new int[3] { 2, 5, 6 }, 3, new int[6] { 1, 2, 2, 3, 5, 6 })]
+        [InlineData(new int[1] { 1 }, 1, new int[] { }, 0, new int[1] { 1 })]
+        [InlineData(new int[1] { 0 }, 0, new int[1] { 1 }, 1, new int[1] { 1 })]
+        [InlineData(new int[2] { 2, 0 }, 1, new int[1] { 1 }, 1, new int[2] { 1, 2 })]
+        [InlineData(new int[63] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 0, new int[63] { -50, -50, -48, -47, -44, -44, -37, -35, -35, -32, -32, -31, -29, -29, -28, -26, -24, -23, -23, -21, -20, -19, -17, -15, -14, -12, -12, -11, -10, -9, -8, -5, -2, -2, 1, 1, 3, 4, 4, 7, 7, 7, 9, 10, 11, 12, 14, 16, 17, 18, 21, 21, 24, 31, 33, 34, 35, 36, 41, 41, 46, 48, 48 }, 63, new int[63] { -50, -50, -48, -47, -44, -44, -37, -35, -35, -32, -32, -31, -29, -29, -28, -26, -24, -23, -23, -21, -20, -19, -17, -15, -14, -12, -12, -11, -10, -9, -8, -5, -2, -2, 1, 1, 3, 4, 4, 7, 7, 7, 9, 10, 11, 12, 14, 16, 17, 18, 21, 21, 24, 31, 33, 34, 35, 36, 41, 41, 46, 48, 48 })]
+        public void MergeTest(int[] nums1, int m, int[] nums2, int n, int[] expected)
+        {
+            _target.Merge(nums1, m, nums2, n);
+            for (int i = 0; i < expected.Length; i++)
+            {
+                Assert.Equal(nums1[i], expected[i]);
+            }
         }
     }
 }

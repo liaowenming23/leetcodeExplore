@@ -99,5 +99,36 @@ namespace leetcodeExplore.Problems
             }
             return head;
         }
+
+        public void Merge(int[] nums1, int m, int[] nums2, int n)
+        {
+            int total = m + n - 1;
+
+            if (n == 0)
+                return;
+            --n;
+            --m;
+            for (int i = total; i >= 0; i--)
+            {
+                if (n < 0)
+                    return;
+
+                if (m < 0)
+                {
+                    nums1[i] = nums2[n];
+                    n--;
+                }
+                else if (nums2[n] >= nums1[m])
+                {
+                    nums1[i] = nums2[n];
+                    n--;
+                }
+                else
+                {
+                    nums1[i] = nums1[m];
+                    m--;
+                }
+            }
+        }
     }
 }
