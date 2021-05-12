@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using leetcodeExplore.model;
 
 namespace leetcodeExplore.Problems
@@ -129,6 +130,23 @@ namespace leetcodeExplore.Problems
                     m--;
                 }
             }
+        }
+
+        public IList<int> InorderTraversal(TreeNode root)
+        {
+            var result = new List<int>();
+
+            AddList(root, result);
+            return result;
+        }
+
+        private void AddList(TreeNode node, List<int> list)
+        {
+            if (node is null)
+                return;
+            AddList(node.left, list);
+            list.Add(node.val);
+            AddList(node.right, list);
         }
     }
 }

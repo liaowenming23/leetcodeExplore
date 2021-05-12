@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using leetcodeExplore.model;
 using leetcodeExplore.Problems;
 using Xunit;
@@ -112,5 +113,50 @@ namespace leetcodeExploreTest.Problems
                 Assert.Equal(nums1[i], expected[i]);
             }
         }
+
+        [Fact]
+        public void InorderTraversalTest_1()
+        {
+            var input = new TreeNode(1);
+            input.right = new TreeNode(2);
+            input.right.left = new TreeNode(3);
+
+            var expected = new List<int> { 1, 3, 2 };
+            var actual = _target.InorderTraversal(input);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void InorderTraversalTest_2()
+        {
+            var input = new TreeNode(1);
+
+            var expected = new List<int> { 1 };
+            var actual = _target.InorderTraversal(input);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void InorderTraversalTest_3()
+        {
+            var input = new TreeNode(1);
+            input.left = new TreeNode(2);
+
+            var expected = new List<int> { 2, 1 };
+            var actual = _target.InorderTraversal(input);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void InorderTraversalTest_4()
+        {
+            var input = new TreeNode(1);
+            input.right = new TreeNode(2);
+
+            var expected = new List<int> { 1, 2 };
+            var actual = _target.InorderTraversal(input);
+            Assert.Equal(expected, actual);
+        }
+
     }
 }
