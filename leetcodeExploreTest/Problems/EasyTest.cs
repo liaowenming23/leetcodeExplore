@@ -158,5 +158,47 @@ namespace leetcodeExploreTest.Problems
             Assert.Equal(expected, actual);
         }
 
+        [Fact]
+        public void IsSameTreeTest_1()
+        {
+            var p = new TreeNode(1);
+            p.left = new TreeNode(2);
+            p.right = new TreeNode(3);
+
+            var q = new TreeNode(1);
+            q.left = new TreeNode(2);
+            q.right = new TreeNode(3);
+            var expected = true;
+            var actual = _target.IsSameTree(p, q);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void IsSameTreeTest_2()
+        {
+            var p = new TreeNode(1);
+            p.left = new TreeNode(2);
+
+            var q = new TreeNode(1);
+            q.right = new TreeNode(2);
+            var expected = false;
+            var actual = _target.IsSameTree(p, q);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void IsSameTreeTest_3()
+        {
+            var p = new TreeNode(1);
+            p.left = new TreeNode(2);
+            p.right = new TreeNode(1);
+
+            var q = new TreeNode(1);
+            q.left = new TreeNode(1);
+            q.right = new TreeNode(2);
+            var expected = false;
+            var actual = _target.IsSameTree(p, q);
+            Assert.Equal(expected, actual);
+        }
     }
 }
