@@ -162,5 +162,26 @@ namespace leetcodeExplore.Problems
 
             return IsSameTree(p.left, q.left) && IsSameTree(p.right, q.right);
         }
+
+        public bool IsSymmetric(TreeNode root)
+        {
+            if (root is null)
+                return true;
+            return IsSymmetricValue(root.left, root.right);
+        }
+
+        private bool IsSymmetricValue(TreeNode left, TreeNode right)
+        {
+            if (left is null && right is null)
+                return true;
+
+            if (left is null || right is null)
+                return false;
+
+            if (!left.val.Equals(right.val))
+                return false;
+
+            return IsSymmetricValue(left.left, right.right) && IsSymmetricValue(left.right, right.left);
+        }
     }
 }

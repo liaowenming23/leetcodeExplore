@@ -200,5 +200,33 @@ namespace leetcodeExploreTest.Problems
             var actual = _target.IsSameTree(p, q);
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void IsSymmetric_1()
+        {
+            var root = new TreeNode(1);
+            root.left = new TreeNode(2);
+            root.left.left = new TreeNode(3);
+            root.left.right = new TreeNode(4);
+            root.right = new TreeNode(2);
+            root.right.left = new TreeNode(4);
+            root.right.right = new TreeNode(3);
+            var expected = true;
+            var actual = _target.IsSymmetric(root);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void IsSymmetric_2()
+        {
+            var root = new TreeNode(1);
+            root.left = new TreeNode(2);
+            root.left.right = new TreeNode(3);
+            root.right = new TreeNode(2);
+            root.right.right = new TreeNode(3);
+            var expected = false;
+            var actual = _target.IsSymmetric(root);
+            Assert.Equal(expected, actual);
+        }
     }
 }
