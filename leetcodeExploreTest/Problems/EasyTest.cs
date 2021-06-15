@@ -228,5 +228,72 @@ namespace leetcodeExploreTest.Problems
             var actual = _target.IsSymmetric(root);
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void MaxDepth_1()
+        {
+            var root = new TreeNode(3);
+            root.left = new TreeNode(9);
+            root.right = new TreeNode(20);
+            root.right.left = new TreeNode(15);
+            root.right.right = new TreeNode(7);
+            var expected = 3;
+            var actual = _target.MaxDepth(root);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void MaxDepth_2()
+        {
+            TreeNode root = null;
+            var expected = 0;
+            var actual = _target.MaxDepth(root);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void MaxDepth_3()
+        {
+            var root = new TreeNode(0);
+            var expected = 1;
+            var actual = _target.MaxDepth(root);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void SortedArrayToBSTTest_1()
+        {
+            var input = new int[] { -10, -3, 0, 5, 9 };
+            var expected = new TreeNode(0);
+            expected.left = new TreeNode(-10);
+            expected.left.right = new TreeNode(-3);
+            expected.right = new TreeNode(5);
+            expected.right.right = new TreeNode(9);
+
+            var actual = _target.SortedArrayToBST(input);
+            Assert.True(VerifyTreeNode(expected, actual));
+        }
+
+        [Fact]
+        public void SortedArrayToBSTTest_2()
+        {
+            var input = new int[] { 1, 3 };
+            var expected = new TreeNode(1);
+            expected.right = new TreeNode(3);
+
+            var actual = _target.SortedArrayToBST(input);
+            Assert.True(VerifyTreeNode(expected, actual));
+        }
+
+        private bool VerifyTreeNode(TreeNode expected, TreeNode actual)
+        {
+            if (expected is null && actual is null)
+                return true;
+            if (expected is null || actual is null)
+                return false;
+            if (!expected.val.Equals(actual.val))
+                return false;
+            return VerifyTreeNode(expected.left, actual.left) && VerifyTreeNode(expected.right, actual.right);
+        }
     }
 }

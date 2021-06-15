@@ -183,5 +183,37 @@ namespace leetcodeExplore.Problems
 
             return IsSymmetricValue(left.left, right.right) && IsSymmetricValue(left.right, right.left);
         }
+
+        public int MaxDepth(TreeNode root)
+        {
+            int dep = 0;
+            return DepthValue(root, dep);
+        }
+
+        private int DepthValue(TreeNode node, int dep)
+        {
+            if (node is null)
+                return dep;
+            var nextDep = dep + 1;
+            var tempA = DepthValue(node.left, nextDep);
+            var tempB = DepthValue(node.right, nextDep);
+            return tempA > tempB ? tempA : tempB;
+        }
+
+        public TreeNode SortedArrayToBST(int[] nums)
+        {
+            return BSTToTreeNode(nums, 0, nums.Length - 1);
+        }
+
+        private TreeNode BSTToTreeNode(int[] nums, int s, int e)
+        {
+            if (s > e)
+                return null;
+            int mid = s + (e - s) / 2;
+            var node = new TreeNode(nums[mid]);
+            node.left = BSTToTreeNode(nums, s, mid - 1);
+            node.right = BSTToTreeNode(nums, mid + 1, e);
+            return node;
+        }
     }
 }
