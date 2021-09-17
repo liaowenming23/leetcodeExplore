@@ -215,5 +215,14 @@ namespace leetcodeExplore.Problems
             node.right = BSTToTreeNode(nums, mid + 1, e);
             return node;
         }
+
+        public int SingleNumber(int[] nums)
+        {
+            int temp = 0;
+            foreach (var n in nums)
+                temp ^= n;
+
+            return temp;
+        }
     }
 }

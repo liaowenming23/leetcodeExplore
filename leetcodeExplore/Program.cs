@@ -6,9 +6,9 @@ namespace leetcodeExplore
 {
     class Program
     {
-        static void Main (string[] args)
+        static void Main(string[] args)
         {
-            Console.WriteLine ("Hello World!");
+            Console.WriteLine("Hello World!");
 
             //TestLinkedList();
             //TestPivotIndex();
@@ -19,43 +19,61 @@ namespace leetcodeExplore
             //TestGenerate();
             //StackTest();
             // PadLeftTest();
-            Console.ReadKey ();
+            // Console.ReadKey ();
+            var queen = 4;
+            var target = new NQueueSolution();
+            var actual = target.Sol(queen);
+            foreach (var s in actual)
+            {
+                for (int y = 0; y < s.Length; y++)
+                {
+                    var px = s[y];
+                    for (int x = 0; x < s.Length; x++)
+                    {
+                        if (x == px)
+                            Console.Write("Q");
+                        else
+                            Console.Write(".");
+                    }
+                    Console.WriteLine();
+                }
+            }
         }
 
         #region LinkedList
-        static void TestLinkedList ()
+        static void TestLinkedList()
         {
 
-            LinkedList l = new LinkedList ();
-            l.AddAtHead (38);
-            l.AddAtHead (45);
-            l.DeleteAtIndex (2);
-            l.AddAtIndex (1, 24);
-            l.AddAtTail (36);
-            l.AddAtIndex (3, 72);
-            l.AddAtTail (76);
-            l.AddAtHead (7);
-            l.AddAtHead (36);
-            l.AddAtHead (34);
-            l.AddAtTail (91);
-            l.AddAtTail (69);
-            l.AddAtHead (37);
-            l.AddAtTail (38);
-            l.AddAtTail (4);
-            l.AddAtHead (66);
-            l.AddAtTail (38);
-            l.DeleteAtIndex (14);
-            l.AddAtTail (12);
-            l.AddAtTail (32);
-            var a = l.Get (5);
-            l.AddAtIndex (7, 5);
-            l.AddAtHead (74);
-            var b = l.Get (7);
-            var c = l.Get (13);
+            LinkedList l = new LinkedList();
+            l.AddAtHead(38);
+            l.AddAtHead(45);
+            l.DeleteAtIndex(2);
+            l.AddAtIndex(1, 24);
+            l.AddAtTail(36);
+            l.AddAtIndex(3, 72);
+            l.AddAtTail(76);
+            l.AddAtHead(7);
+            l.AddAtHead(36);
+            l.AddAtHead(34);
+            l.AddAtTail(91);
+            l.AddAtTail(69);
+            l.AddAtHead(37);
+            l.AddAtTail(38);
+            l.AddAtTail(4);
+            l.AddAtHead(66);
+            l.AddAtTail(38);
+            l.DeleteAtIndex(14);
+            l.AddAtTail(12);
+            l.AddAtTail(32);
+            var a = l.Get(5);
+            l.AddAtIndex(7, 5);
+            l.AddAtHead(74);
+            var b = l.Get(7);
+            var c = l.Get(13);
 
             while (l.node != null)
             {
-                Console.WriteLine (l.node.val);
+                Console.WriteLine(l.node.val);
                 l.node = l.node.next;
             }
             //Console.WriteLine($"b : {b}");
@@ -67,23 +85,23 @@ namespace leetcodeExplore
         #endregion
 
         #region Find Pivot Index
-        static void TestPivotIndex ()
+        static void TestPivotIndex()
         {
             int[] a = { 1, 7, 3, 6, 5, 6 };
             int[] b = { 1, 2, 3 };
-            var result = PivotIndex (a);
-            var result1 = PivotIndex (b);
-            Console.WriteLine (result);
-            Console.WriteLine (result1);
-            int[] c = {-1, -1, -1, -1, -1, -1 };
-            var r3 = PivotIndex (c);
-            Console.WriteLine (r3);
-            int[] d = {-1, -1, -1, 0, 0, 0 };
-            var r4 = PivotIndex (d);
-            Console.WriteLine (r4);
-            Console.ReadKey ();
+            var result = PivotIndex(a);
+            var result1 = PivotIndex(b);
+            Console.WriteLine(result);
+            Console.WriteLine(result1);
+            int[] c = { -1, -1, -1, -1, -1, -1 };
+            var r3 = PivotIndex(c);
+            Console.WriteLine(r3);
+            int[] d = { -1, -1, -1, 0, 0, 0 };
+            var r4 = PivotIndex(d);
+            Console.WriteLine(r4);
+            Console.ReadKey();
         }
-        static int PivotIndex (int[] nums)
+        static int PivotIndex(int[] nums)
         {
             int t = 0, s = 0;
             foreach (int n in nums)
@@ -98,17 +116,17 @@ namespace leetcodeExplore
         #endregion
 
         #region Largest Number At Least Twice of Others
-        static void TestDominantIndex ()
+        static void TestDominantIndex()
         {
             int[] a = { 3, 6, 1, 0 };
             int[] b = { 0 };
-            var r1 = DominantIndex (a);
-            var r2 = DominantIndex (b);
-            Console.WriteLine (r1);
-            Console.WriteLine (r2);
-            Console.ReadKey ();
+            var r1 = DominantIndex(a);
+            var r2 = DominantIndex(b);
+            Console.WriteLine(r1);
+            Console.WriteLine(r2);
+            Console.ReadKey();
         }
-        static int DominantIndex (int[] nums)
+        static int DominantIndex(int[] nums)
         {
             int largestNum = 0;
             int secondNum = 0;
@@ -140,17 +158,17 @@ namespace leetcodeExplore
         #endregion
 
         #region Plus One
-        static void TestPlusOne ()
+        static void TestPlusOne()
         {
             int[] a = { 9 };
-            var r1 = PlusOne (a);
+            var r1 = PlusOne(a);
             foreach (var item in r1)
             {
-                Console.WriteLine (item);
+                Console.WriteLine(item);
             }
-            Console.ReadKey ();
+            Console.ReadKey();
         }
-        static int[] PlusOne (int[] digits)
+        static int[] PlusOne(int[] digits)
         {
             int maxIndex = digits.Length - 1;
             digits[maxIndex] = digits[maxIndex] + 1;
@@ -179,26 +197,26 @@ namespace leetcodeExplore
         #endregion
 
         #region Diagonal Traverse
-        static void TestFindDiagonalOrder ()
+        static void TestFindDiagonalOrder()
         {
-            int[, ] a = new int[, ]
+            int[,] a = new int[,]
             { { 1, 2, 3, }, { 4, 5, 6 }, { 7, 8, 9 }
             };
-            int[, ] b = new int[, ]
+            int[,] b = new int[,]
             { { 3 }, { 2 }
             };
             //var r1 = FindDiagonalOrder(a);
-            var r1 = FindDiagonalOrder (b);
+            var r1 = FindDiagonalOrder(b);
             foreach (var item in r1)
             {
-                Console.WriteLine (item);
+                Console.WriteLine(item);
             }
-            Console.ReadKey ();
+            Console.ReadKey();
         }
-        static int[] FindDiagonalOrder (int[, ] matrix)
+        static int[] FindDiagonalOrder(int[,] matrix)
         {
-            int y_len = matrix.GetLength (0);
-            int x_len = matrix.GetLength (1);
+            int y_len = matrix.GetLength(0);
+            int x_len = matrix.GetLength(1);
             if (x_len == 0 && y_len == 0)
                 return new int[0];
             int total_len = x_len * y_len;
@@ -231,16 +249,16 @@ namespace leetcodeExplore
                 switch (direction)
                 {
                     case 0:
-                        xy = ToRight (xy);
+                        xy = ToRight(xy);
                         break;
                     case 1:
-                        xy = ToDown (xy);
+                        xy = ToDown(xy);
                         break;
                     case 2:
-                        xy = ToRightUp (xy);
+                        xy = ToRightUp(xy);
                         break;
                     case 3:
-                        xy = ToLeftDown (xy);
+                        xy = ToLeftDown(xy);
                         break;
                 }
                 try
@@ -250,33 +268,33 @@ namespace leetcodeExplore
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine (ex);
+                    Console.WriteLine(ex);
                 }
             }
             return result;
         }
 
         //0
-        static XY ToRight (XY xy)
+        static XY ToRight(XY xy)
         {
             xy.x++;
             return xy;
         }
         //1
-        static XY ToDown (XY xy)
+        static XY ToDown(XY xy)
         {
             xy.y++;
             return xy;
         }
         //2
-        static XY ToRightUp (XY xy)
+        static XY ToRightUp(XY xy)
         {
             xy.x++;
             xy.y--;
             return xy;
         }
         //3
-        static XY ToLeftDown (XY xy)
+        static XY ToLeftDown(XY xy)
         {
             xy.x--;
             xy.y++;
@@ -291,28 +309,28 @@ namespace leetcodeExplore
         #endregion
 
         #region Spiral Matrix
-        static void TestSpiralOrder ()
+        static void TestSpiralOrder()
         {
-            int[, ] a = new int[, ]
+            int[,] a = new int[,]
             { { 1, 2, 3, }, { 4, 5, 6 }, { 7, 8, 9 }
             };
 
-            int[, ] b = new int[, ]
+            int[,] b = new int[,]
             { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }
             };
-            var r1 = SpiralOrder (b);
+            var r1 = SpiralOrder(b);
             foreach (var item in r1)
             {
-                Console.WriteLine (item);
+                Console.WriteLine(item);
             }
-            Console.ReadKey ();
+            Console.ReadKey();
         }
-        public static IList<int> SpiralOrder (int[, ] matrix)
+        public static IList<int> SpiralOrder(int[,] matrix)
         {
 
             int min_x = 0, min_y = 1;
-            int max_y = matrix.GetLength (0);
-            int max_x = matrix.GetLength (1);
+            int max_y = matrix.GetLength(0);
+            int max_x = matrix.GetLength(1);
             if (max_y == 0 && max_x == 0)
                 return new int[0];
             int direction = 0;
@@ -349,16 +367,16 @@ namespace leetcodeExplore
                 switch (direction)
                 {
                     case 0:
-                        xy = ToRight (xy);
+                        xy = ToRight(xy);
                         break;
                     case 1:
-                        xy = ToDown (xy);
+                        xy = ToDown(xy);
                         break;
                     case 2:
-                        xy = ToLeft (xy);
+                        xy = ToLeft(xy);
                         break;
                     case 3:
-                        xy = ToUp (xy);
+                        xy = ToUp(xy);
                         break;
                 }
 
@@ -369,20 +387,20 @@ namespace leetcodeExplore
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine (ex);
+                    Console.WriteLine(ex);
                 }
             }
             return result;
         }
 
         //2
-        static XY ToLeft (XY xy)
+        static XY ToLeft(XY xy)
         {
             xy.x--;
             return xy;
         }
         //3
-        static XY ToUp (XY xy)
+        static XY ToUp(XY xy)
         {
             xy.y--;
             return xy;
@@ -390,9 +408,9 @@ namespace leetcodeExplore
         #endregion
 
         #region Generate
-        public static void TestGenerate ()
+        public static void TestGenerate()
         {
-            var a = Generate (0);
+            var a = Generate(0);
             foreach (var row in a)
             {
                 string str = string.Empty;
@@ -400,12 +418,12 @@ namespace leetcodeExplore
                 {
                     str += $"{col},";
                 }
-                Console.WriteLine (str);
+                Console.WriteLine(str);
             }
-            Console.ReadKey ();
+            Console.ReadKey();
         }
 
-        public static IList<IList<int>> Generate (int numRows)
+        public static IList<IList<int>> Generate(int numRows)
         {
             int[][] result = new int[numRows][];
             for (int i = 0; i < numRows; i++)
@@ -426,22 +444,22 @@ namespace leetcodeExplore
             return result;
         }
 
-        public static void StackTest ()
+        public static void StackTest()
         {
             string a = "112233";
-            Stack stack = new Stack ();
-            stack.Push (a.ToCharArray ());
+            Stack stack = new Stack();
+            stack.Push(a.ToCharArray());
             while (stack.Count > 0)
             {
-                Console.WriteLine (stack.Pop ());
+                Console.WriteLine(stack.Pop());
             }
         }
 
-        public static void PadLeftTest ()
+        public static void PadLeftTest()
         {
             string a = "1";
 
-            Console.WriteLine (a);
+            Console.WriteLine(a);
         }
     }
     #endregion
