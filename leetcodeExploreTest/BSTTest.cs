@@ -75,7 +75,7 @@ namespace leetcodeExploreTest
         }
 
         [Fact]
-        public void searchBST_Test1()
+        public void SearchBST_Test1()
         {
             var input = new TreeNode(4);
             input.left = new TreeNode(2);
@@ -87,6 +87,26 @@ namespace leetcodeExploreTest
             expected.left = new TreeNode(1);
             expected.right = new TreeNode(3);
             var actual = _target.SearchBST(input, 2);
+            Assert.Equal(GetTreeNode(expected), GetTreeNode(actual));
+        }
+
+        [Fact]
+        public void InsertIntoBST_Test1()
+        {
+            var input = new TreeNode(4);
+            input.left = new TreeNode(2);
+            input.left.left = new TreeNode(1);
+            input.left.right = new TreeNode(3);
+            input.right = new TreeNode(7);
+
+            var expected = new TreeNode(4);
+            expected.left = new TreeNode(2);
+            expected.left.left = new TreeNode(1);
+            expected.left.right = new TreeNode(3);
+            expected.right = new TreeNode(7);
+            expected.right.left = new TreeNode(5);
+            var val = 5;
+            var actual = _target.InsertIntoBST(input, val);
             Assert.Equal(GetTreeNode(expected), GetTreeNode(actual));
         }
 
