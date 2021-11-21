@@ -224,5 +224,15 @@ namespace leetcodeExplore.Problems
 
             return temp;
         }
+
+        public bool HasPathSum(TreeNode root, int targetSum)
+        {
+            if (root is null)
+                return false;
+            if (root.left is null && root.right is null)
+                return root.val - targetSum == 0;
+            return HasPathSum(root.left, targetSum - root.val) || HasPathSum(root.right, targetSum - root.val);
+        }
+
     }
 }
