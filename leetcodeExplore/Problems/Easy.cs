@@ -5,22 +5,22 @@ namespace leetcodeExplore.Problems
 {
     public class Easy
     {
-        public int SearchInsert(int[] nums, int target)
+        public int SearchInsert(int[] num, int target)
         {
-            int len = nums.Length;
+            int len = num.Length;
             var min = 0;
             var max = len - 1;
             int mid = len / 2;
-            if (nums[max] < target)
+            if (num[max] < target)
                 return len;
-            if (nums[max] == target)
+            if (num[max] == target)
                 return max;
-            if (nums[min] >= target)
+            if (num[min] >= target)
                 return min;
 
             while (max - min > 1)
             {
-                if (nums[mid] >= target)
+                if (num[mid] >= target)
                 {
                     max = mid;
                     mid = (min + max) / 2;
@@ -223,6 +223,56 @@ namespace leetcodeExplore.Problems
                 temp ^= n;
 
             return temp;
+        }
+
+        public bool IsPalindrome(string s)
+        {
+            var len = s.Length;
+            int i = 0, j = len - 1;
+            while (i < j)
+            {
+                if (!IsAlphanumeric(s[i]))
+                    i++;
+                else if (!IsAlphanumeric(s[j]))
+                    j--;
+                else if (s[i] == s[j] || EqualIgnoreCase(s[i], s[j]))
+                {
+                    i++;
+                    j--;
+                }
+                else return false;
+            }
+            return true;
+        }
+
+        private bool EqualIgnoreCase(char a, char b)
+        {
+            var aa = ((byte)a);
+            var bb = ((byte)b);
+            if (aa < 58 || bb < 58)
+                return false;
+            var c = aa - bb;
+            return c == 32 || c == -32;
+        }
+
+        private bool IsAlphanumeric(char c)
+        {
+            return (64 < ((byte)c) && ((byte)c) < 91) || (96 < ((byte)c) && ((byte)c) < 123) || (47 < ((byte)c) && ((byte)c) < 58);
+        }
+
+        public bool IsBalanced(TreeNode root)
+        {
+            if (root == null) return true;
+            var l = Hight(root.left);
+            var r = Hight(root.right);
+            return System.Math.Abs(l - r) <= 1 && IsBalanced(root.left) && IsBalanced(root.right);
+        }
+
+        private int Hight(TreeNode node)
+        {
+            if (node == null)
+                return 0;
+            return System.Math.Max(Hight(node.left), Hight(node.right)) + 1;
         }
     }
 }

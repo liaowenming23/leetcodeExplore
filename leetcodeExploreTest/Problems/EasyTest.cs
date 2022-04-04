@@ -306,5 +306,88 @@ namespace leetcodeExploreTest.Problems
 
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData("A man, a plan, a canal: Panama", true)]
+        [InlineData("race a car", false)]
+        [InlineData(" ", true)]
+        [InlineData("0P", false)]
+        public void IsPalindromeTest(string input, bool expected)
+        {
+            var actual = _target.IsPalindrome(input);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void IsBalancedTest_1()
+        {
+            var input = new TreeNode(3);
+            input.left = new TreeNode(9);
+            input.right = new TreeNode(20);
+            input.right.left = new TreeNode(15);
+            input.right.right = new TreeNode(7);
+            var actual = _target.IsBalanced(input);
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void IsBalancedTest_2()
+        {
+            var input = new TreeNode(1);
+            input.left = new TreeNode(2);
+            input.left.left = new TreeNode(3);
+            input.left.right = new TreeNode(3);
+            input.left.left.left = new TreeNode(4);
+            input.left.left.right = new TreeNode(4);
+            input.right = new TreeNode(2);
+            var actual = _target.IsBalanced(input);
+            Assert.False(actual);
+        }
+
+        [Fact]
+        public void IsBalancedTest_3()
+        {
+            var input = new TreeNode(1);
+            input.right = new TreeNode(2);
+            input.right.right = new TreeNode(3);
+            var actual = _target.IsBalanced(input);
+            Assert.False(actual);
+        }
+
+        [Fact]
+        public void IsBalancedTest_4()
+        {
+            var input = new TreeNode(1);
+            input.left = new TreeNode(2);
+            input.left.left = new TreeNode(4);
+            input.left.right = new TreeNode(5);
+            input.left.left.left = new TreeNode(8);
+            input.right = new TreeNode(3);
+            input.right.left = new TreeNode(6);
+            var actual = _target.IsBalanced(input);
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void IsBalancedTest_5()
+        {
+            var input = new TreeNode(1);
+            input.left = new TreeNode(2);
+            input.left.left = new TreeNode(3);
+            input.left.right = new TreeNode(3);
+            input.left.left.left = new TreeNode(4);
+            input.left.left.right = new TreeNode(4);
+            input.left.right.left = new TreeNode(4);
+            input.left.right.right = new TreeNode(4);
+            input.left.left.left.left = new TreeNode(5);
+            input.left.left.left.right = new TreeNode(5);
+            input.right = new TreeNode(2);
+            input.right.left = new TreeNode(3);
+            input.right.right = new TreeNode(3);
+            input.right.left.left = new TreeNode(4);
+            input.right.left.right = new TreeNode(4);
+            var actual = _target.IsBalanced(input);
+            Assert.True(actual);
+        }
     }
 }
