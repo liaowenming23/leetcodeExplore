@@ -3,7 +3,7 @@ using leetcodeExplore.model;
 
 namespace leetcodeExplore
 {
-    public class BinarhTree
+    public class BinaryTree
     {
         public IList<int> PreorderTraversal (TreeNode root)
         {

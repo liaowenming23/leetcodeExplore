@@ -274,5 +274,14 @@ namespace leetcodeExplore.Problems
                 return 0;
             return System.Math.Max(Hight(node.left), Hight(node.right)) + 1;
         }
+        public bool HasPathSum(TreeNode root, int targetSum)
+        {
+            if (root is null)
+                return false;
+            if (root.left is null && root.right is null)
+                return root.val - targetSum == 0;
+            return HasPathSum(root.left, targetSum - root.val) || HasPathSum(root.right, targetSum - root.val);
+        }
+
     }
 }

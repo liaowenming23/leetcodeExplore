@@ -389,5 +389,23 @@ namespace leetcodeExploreTest.Problems
             var actual = _target.IsBalanced(input);
             Assert.True(actual);
         }
+
+        [Fact]
+        public void HasPathSumTest()
+        {
+            var root = new TreeNode(5);
+            root.left = new TreeNode(4);
+            root.left.left = new TreeNode(11);
+            root.left.left.left = new TreeNode(7);
+            root.left.left.right = new TreeNode(2);
+            root.right = new TreeNode(8);
+            root.right.left = new TreeNode(13);
+            root.right.right = new TreeNode(4);
+            root.right.right.right = new TreeNode(1);
+
+            var expected = true;
+            var actual = _target.HasPathSum(root, 22);
+            Assert.Equal(expected, actual);
+        }
     }
 }

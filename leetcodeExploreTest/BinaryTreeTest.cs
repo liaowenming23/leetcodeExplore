@@ -7,10 +7,10 @@ namespace leetcodeExploreTest
 {
     public class BinaryTreeTest
     {
-        private readonly BinarhTree _target;
+        private readonly BinaryTree _target;
         public BinaryTreeTest ()
         {
-            _target = new BinarhTree ();
+            _target = new BinaryTree ();
         }
 
         [Fact]

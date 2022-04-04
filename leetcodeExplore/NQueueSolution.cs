@@ -27,7 +27,7 @@ namespace leetcodeExplore
                     _tempSol[y] = x;
                     if (y == _maxRow - 1)
                     {
-                        sol.Add(_tempSol);
+                        sol.Add((int[])_tempSol.Clone());
                         _tempSol[y] = 0;
                         return;
                     }
@@ -41,7 +41,7 @@ namespace leetcodeExplore
         {
             for (int i = 0; i < y; i++)
             {
-                var x1 = sol[y];
+                var x1 = sol[i];
                 var y1 = i;
                 if (x1 == x)
                     return false;

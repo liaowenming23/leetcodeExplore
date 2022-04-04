@@ -47,6 +47,32 @@ namespace leetcodeExplore
 
             return null;
         }
+
+        public TreeNode InsertIntoBST(TreeNode root, int val)
+        {
+            if (root is null)
+                return new TreeNode(val);
+            Insert(root, val);
+            return root;
+        }
+
+        private TreeNode Insert(TreeNode root, int val)
+        {
+            if (val < root.val) // left
+            {
+                if (root.left is null)
+                    return root.left = new TreeNode(val);
+                else
+                    return Insert(root.left, val);
+            }
+            else //right
+            {
+                if (root.right is null)
+                    return root.right = new TreeNode(val);
+                else
+                    return Insert(root.right, val);
+            }
+        }
     }
 
     public class BSTIterator
