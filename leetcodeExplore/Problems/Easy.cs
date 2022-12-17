@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using leetcodeExplore.model;
 
 namespace leetcodeExplore.Problems
@@ -283,5 +284,29 @@ namespace leetcodeExplore.Problems
             return HasPathSum(root.left, targetSum - root.val) || HasPathSum(root.right, targetSum - root.val);
         }
 
+        /// <summary>
+        /// 168. Excel Sheet Column Title
+        /// </summary>
+        /// <param name="columnNumber"></param>
+        /// <returns></returns>
+        public string ConvertToTitle(int columnNumber)
+        {
+            var sb = new StringBuilder();
+            GetChart(sb, columnNumber);
+            return sb.ToString();
+        }
+
+        private void GetChart(StringBuilder sb, int num)
+        {
+            var c = 26;
+            num--;
+            var r = num / c;
+            var n = num - (r * c);
+            if (r > 0)
+            {
+                GetChart(sb, r);
+            }
+            sb.Append((char)(65 + n));
+        }
     }
 }

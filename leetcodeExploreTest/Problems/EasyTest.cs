@@ -407,5 +407,16 @@ namespace leetcodeExploreTest.Problems
             var actual = _target.HasPathSum(root, 22);
             Assert.Equal(expected, actual);
         }
+
+
+        [Theory]
+        [InlineData(1, "A")]
+        [InlineData(28, "AB")]
+        [InlineData(701, "ZY")]
+        public void ConvertToTitleTest(int input, string expected)
+        {
+            var actual = _target.ConvertToTitle(input);
+            Assert.Equal(expected, actual);
+        }
     }
 }
