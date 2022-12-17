@@ -418,5 +418,16 @@ namespace leetcodeExploreTest.Problems
             var actual = _target.ConvertToTitle(input);
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData(new int[] { 3, 2, 3 }, 3)]
+        [InlineData(new int[] { 2, 2, 1, 1, 1, 2, 2 }, 2)]
+        [InlineData(new int[] { 8, 8, 7, 7, 7 }, 7)]
+        public void MajorityElementTest(int[] input, int expected)
+        {
+            var actual = _target.MajorityElement(input);
+            Assert.Equal(expected, actual);
+        }
+
     }
 }

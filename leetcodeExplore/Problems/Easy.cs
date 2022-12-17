@@ -308,5 +308,40 @@ namespace leetcodeExplore.Problems
             }
             sb.Append((char)(65 + n));
         }
+
+        /// <summary>
+        /// 169. Majority Element
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int MajorityElement(int[] nums)
+        {
+            var dic = new Dictionary<int, int>();
+            var moreThanHalfVal = nums.Length / 2;
+            var currentNum = 0;
+            var maxCnt = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                int cnt = 0;
+                var rsl = dic.TryGetValue(nums[i], out cnt);
+
+                cnt++;
+                if (cnt > moreThanHalfVal)
+                    return nums[i];
+
+                if (rsl)
+                    dic[nums[i]] = cnt;
+                else
+                    dic.TryAdd(nums[i], cnt);
+
+                if (cnt > maxCnt)
+                {
+                    currentNum = nums[i];
+                    maxCnt = cnt;
+                }
+            }
+            return currentNum;
+        }
+
     }
 }
