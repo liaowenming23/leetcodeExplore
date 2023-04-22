@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 using leetcodeExplore.model;
@@ -341,6 +342,28 @@ namespace leetcodeExplore.Problems
                 }
             }
             return currentNum;
+        }
+
+        /// <summary>
+        /// 171. Excel Sheet Column Number
+        /// </summary>
+        /// <param name="columnTitle"></param>
+        /// <returns></returns>
+        public int TitleToNumber(string columnTitle)
+        {
+            var len = columnTitle.Length;
+            var result = 0;
+            for (int i = len - 1, j = 0; i >= 0; i--, j++)
+            {
+                result += GetNumberByChar(columnTitle[i], j);
+            }
+            return result;
+        }
+
+        private int GetNumberByChar(char c, int position)
+        {
+            var i = (int)c - 64;
+            return i * (int)Math.Pow(26, position);
         }
 
     }

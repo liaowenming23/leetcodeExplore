@@ -429,5 +429,14 @@ namespace leetcodeExploreTest.Problems
             Assert.Equal(expected, actual);
         }
 
+        [Theory]
+        [InlineData("A", 1)]
+        [InlineData("AB", 28)]
+        [InlineData("ZY", 701)]
+        public void TitleToNumberTest(string input, int expected)
+        {
+            var actual = _target.TitleToNumber(input);
+            Assert.Equal(expected, actual);
+        }
     }
 }
