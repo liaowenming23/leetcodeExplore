@@ -1,28 +1,31 @@
 using leetcodeExplore.Problems;
 using Xunit;
 
-namespace leetcodeExploreTest.Problems
+namespace leetcodeExploreTest.Problems;
+public class MediumTest
 {
-    public class MediumTest
+    private readonly Medium _target;
+
+    public MediumTest()
     {
-        private readonly Medium _target;
+        _target = new();
+    }
 
-        public MediumTest()
-        {
-            _target = new();
-        }
+    [Theory]
+    [InlineData("abcabcbb", 3)]
+    [InlineData("bbbbb", 1)]
+    [InlineData("pwwkew", 3)]
+    [InlineData(" ", 1)]
+    [InlineData("aab", 2)]
+    [InlineData("abba", 2)]
+    public void LengthOfLongestSubstringTest(string input, int expected)
+    {
+        var actual = _target.LengthOfLongestSubstring(input);
+        Assert.Equal(expected, actual);
+    }
 
-        [Theory]
-        [InlineData("abcabcbb", 3)]
-        [InlineData("bbbbb", 1)]
-        [InlineData("pwwkew", 3)]
-        [InlineData(" ", 1)]
-        [InlineData("aab", 2)]
-        [InlineData("abba", 2)]
-        public void LengthOfLongestSubstringTest(string input, int expected)
-        {
-            var actual = _target.LengthOfLongestSubstring(input);
-            Assert.Equal(expected, actual);
-        }
+    public void LongestPalindrome()
+    {
+
     }
 }
