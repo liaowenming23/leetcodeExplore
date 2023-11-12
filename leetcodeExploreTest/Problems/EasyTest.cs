@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using leetcodeExplore.model;
 using leetcodeExplore.Problems;
 using Xunit;
@@ -442,5 +443,16 @@ public class EasyTest
     public void HammingWeightTest()
     {
         _target.HammingWeight(13);
+    }
+
+    [Theory]
+    [InlineData("00000010100101000001111010011100", "00111001011110000010100101000000")]
+    [InlineData("11111111111111111111111111111101", "10111111111111111111111111111111")]
+    public void Test(string inputS, string expectedS)
+    {
+        var input = _target.StringConvertUint(inputS);
+        var expected = _target.StringConvertUint(expectedS);
+        var actual = _target.ReverseBits(input);
+        Assert.Equal(expected, actual);
     }
 }

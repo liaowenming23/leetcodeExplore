@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using leetcodeExplore.model;
 using Microsoft.VisualBasic;
@@ -195,6 +196,35 @@ public class Easy
         // n = (n & 0x00ff00ff) + ((n >> 8) & 0x00ff00ff);
         // n = (n & 0x0000ffff) + ((n >> 16) & 0x0000ffff);
         // return (int)n;
+    }
+
+    /// <summary>
+    /// 190. Reverse Bits
+    /// </summary>
+    /// <param name="n"></param>
+    /// <returns></returns>
+    public uint ReverseBits(uint n)
+    {
+        if (n == 0 || n == 0xffffffff) return n;
+        // uint r = 0x00000000;
+        // for (int i = 0; i < 32; i++)
+        // {
+        //     uint a = (n >> i) & 1;
+        //     r = (r << 1) + a;
+        // }
+        uint r = 0x00000000;
+        for (int i = 0; i < 32; i++)
+        {
+            r = (r << 1) + (n & 1);
+            n = n >> 1;
+        }
+        return r;
+    }
+
+
+    public uint StringConvertUint(string s)
+    {
+        return Convert.ToUInt32(s, 2);
     }
 
     private bool IsSymmetricValue(TreeNode left, TreeNode right)
