@@ -448,11 +448,21 @@ public class EasyTest
     [Theory]
     [InlineData("00000010100101000001111010011100", "00111001011110000010100101000000")]
     [InlineData("11111111111111111111111111111101", "10111111111111111111111111111111")]
-    public void Test(string inputS, string expectedS)
+    public void StringConvertUintTest(string inputS, string expectedS)
     {
         var input = _target.StringConvertUint(inputS);
         var expected = _target.StringConvertUint(expectedS);
         var actual = _target.ReverseBits(input);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData("abc", "pqr", "apbqcr")]
+    [InlineData("ab", "pqrs", "apbqrs")]
+    [InlineData("abcd", "pq", "apbqcd")]
+    public void MergeAlternately(string input1, string input2, string expected)
+    {
+        var actual = _target.MergeAlternately(input1, input2);
         Assert.Equal(expected, actual);
     }
 }

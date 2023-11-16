@@ -1,10 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using leetcodeExplore.model;
-using Microsoft.VisualBasic;
 
 namespace leetcodeExplore.Problems;
 public class Easy
@@ -421,4 +420,46 @@ public class Easy
         return i * (int)Math.Pow(26, position);
     }
 
+    /// <summary>
+    /// Merge Strings Alternately
+    /// You are given two strings word1 and word2. Merge the strings by adding letters in alternating order, starting with word1. If a string is longer than the other, append the additional letters onto the end of the merged string.
+    /// Return the merged string.
+    /// </summary>
+    /// <param name="word1"></param>
+    /// <param name="word2"></param>
+    /// <returns></returns>
+    public string MergeAlternately(string word1, string word2)
+    {
+        if (word1.Length == 0)
+            return word2;
+        if (word2.Length == 0)
+            return word1;
+        var words = new StringBuilder(word1.Length + word2.Length);
+        var l = Math.Max(word1.Length, word2.Length);
+        for (int i = 0; i < l; i++)
+        {
+            if (i < word1.Length && i < word2.Length)
+            {
+                words.Append(word1[i]);
+                words.Append(word2[i]);
+            }
+            else if (i < word1.Length && i >= word2.Length)
+            {
+                while (i < l)
+                {
+                    words.Append(word1[i]);
+                    i++;
+                }
+            }
+            else if (i < word2.Length && i >= word1.Length)
+            {
+                while (i < l)
+                {
+                    words.Append(word2[i]);
+                    i++;
+                }
+            }
+        }
+        return words.ToString();
+    }
 }

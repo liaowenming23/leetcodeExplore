@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Windows.Markup;
 
 namespace leetcodeExplore.Problems;
 
@@ -29,25 +32,32 @@ public class Medium
 
     public string LongestPalindrome(string s)
     {
-        int start = 0, end = 0;
+        if (s.Length < 2)
+            return s;
+        int start = 0;
         int r1 = 0, r2 = 0;
-
-        while (end < s.Length)
+        while (start < s.Length)
         {
-            if (CheckPalindrome(start, end, s[start..end]))
+            var end = s.Length - 1;
+            while (end > start)
             {
-                r1 = start;
-                r2 = end;
+                if (CheckPalindrome(start, end, s))
+                {
+                    if ((end - start) > (r2 - r1))
+                    {
+                        r1 = start;
+                        r2 = end;
+                    }
+                }
+                end--;
             }
-            end++;
+            start++;
         }
-        return s[r1..r2];
+        return s[r1..(r2 + 1)];
     }
 
     private bool CheckPalindrome(int s, int e, string v)
     {
-        if (v[s] != v[e])
-            return false;
         while (s < e)
         {
             if (v[s] == v[e])
@@ -59,5 +69,40 @@ public class Medium
                 return false;
         }
         return true;
+    }
+
+    /// <summary>
+    /// 6. Zigzag Conversion
+    /// </summary>
+    /// <param name="s"></param>
+    /// <param name="numRows"></param>
+    /// <returns></returns>
+    public string Convert(string s, int numRows)
+    {
+        if (numRows == 1)
+            return s;
+        var result = new char[s.Length];
+        var range = (numRows * 2) - 2;
+        int p = 0;
+        for (int row = 0; row < numRows; row++)
+        {
+            var start = 0;
+            while (start + row < s.Length)
+            {
+                result[p] = s[start + row];
+                p++;
+                if (row != 0 && row != (numRows - 1))
+                {
+                    var p1 = start + range - row;
+                    if (p1 < s.Length)
+                    {
+                        result[p] = s[p1];
+                        p++;
+                    }
+                }
+                start += range;
+            }
+        }
+        return new string(result);
     }
 }
