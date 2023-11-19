@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using leetcodeExplore.model;
 
@@ -461,5 +460,59 @@ public class Easy
             }
         }
         return words.ToString();
+    }
+
+    /// <summary>
+    /// 27. Remove Element
+    /// </summary>
+    /// <param name="nums"></param>
+    /// <param name="val"></param>
+    /// <returns></returns>
+    public int RemoveElement(int[] nums, int val)
+    {
+        if (nums.Length == 0)
+            return 0;
+        int index = 0;
+        for (int i = 0; i < nums.Length; i++)
+        {
+            if (nums[i] != val)
+            {
+                nums[index] = nums[i];
+                index++;
+            }
+        }
+        return index;
+    }
+
+    /// <summary>
+    /// 80. Remove Duplicates from Sorted Array II
+    /// </summary>
+    /// <param name="nums"></param>
+    /// <returns></returns>
+    public int RemoveDuplicates(int[] nums)
+    {
+        if (nums.Length < 3)
+            return nums.Length;
+        var index = 2;
+        for (int i = 2; i < nums.Length; i++)
+        {
+            if (!IsDuplicate(i, i - index))
+            {
+                nums[index] = nums[i];
+                index++;
+            }
+        }
+
+        bool IsDuplicate(int p, int p1)
+        {
+            var p2 = (2 + p1);
+            var p3 = (1 + p1);
+            if (nums[p - p2] != nums[p - p3])
+                return false;
+            if (nums[p - p3] == nums[p])
+                return true;
+            return false;
+        }
+        return index;
     }
 }

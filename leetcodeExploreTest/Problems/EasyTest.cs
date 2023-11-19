@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using leetcodeExplore.model;
 using leetcodeExplore.Problems;
@@ -464,5 +465,28 @@ public class EasyTest
     {
         var actual = _target.MergeAlternately(input1, input2);
         Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(new int[] { 3, 2, 2, 3 }, 3, 2)]
+    [InlineData(new int[] { 0, 1, 2, 2, 3, 0, 4, 2 }, 2, 5)]
+    public void RemoveElementTest(int[] input, int val, int expected)
+    {
+        var actual = _target.RemoveElement(input, val);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(new int[] { 1, 1, 1, 2, 2, 3 }, 5, new int[] { 1, 1, 2, 2, 3 })]
+    [InlineData(new int[] { 0, 0, 1, 1, 1, 1, 2, 3, 3 }, 7, new int[] { 0, 0, 1, 1, 2, 3, 3 })]
+    [InlineData(new int[] { 1 }, 1, new int[] { 1 })]
+    public void RemoveDuplicatesTest(int[] input, int expected, int[] expectedNumbers)
+    {
+        var actual = _target.RemoveDuplicates(input);
+        Assert.Equal(expected, actual);
+        for (int i = 0; i < expected; i++)
+        {
+            Assert.Equal(expectedNumbers[i], input[i]);
+        }
     }
 }
