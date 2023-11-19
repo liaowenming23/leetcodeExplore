@@ -515,4 +515,46 @@ public class Easy
         }
         return index;
     }
+
+    public string GcdOfStrings(string str1, string str2)
+    {
+        if ((str1 + str2) == (str2 + str1))
+        {
+            var p = GCD(str1.Length, str2.Length % str1.Length);
+            return str1[0..p];
+        }
+        return string.Empty;
+
+        int GCD(int n1, int n2)
+        {
+            if (n2 == 0)
+                return n1;
+            return GCD(n2, n1 % n2);
+        }
+    }
+
+    public int MaxProfit(int[] prices)
+    {
+        if (prices.Length == 0)
+            return 0;
+        var minIndex = 0;
+        var maxIndex = 0;
+        var result = 0;
+        for (int i = 0; i < prices.Length; i++)
+        {
+            if (prices[maxIndex] < prices[i])
+                maxIndex = i;
+            if (prices[minIndex] > prices[i])
+                minIndex = i;
+            if (maxIndex <= minIndex)
+            {
+                maxIndex = minIndex;
+                continue;
+            }
+            var val = prices[maxIndex] - prices[minIndex];
+            if (val > result)
+                result = val;
+        }
+        return result;
+    }
 }
