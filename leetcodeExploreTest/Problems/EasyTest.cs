@@ -507,4 +507,6 @@ public class EasyTest
         var actual = _target.MaxProfit(input);
         Assert.Equal(expected, actual);
     }
+
+  
 }

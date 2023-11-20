@@ -105,4 +105,33 @@ public class Medium
         }
         return new string(result);
     }
+
+    public int MaxProfit(int[] prices)
+    {
+        if (prices.Length == 0)
+            return 0;
+        var minIndex = 0;
+        var maxIndex = 0;
+        var result = 0;
+        for (int i = 0; i < prices.Length; i++)
+        {
+            if (prices[maxIndex] < prices[i])
+                maxIndex = i;
+            if (prices[minIndex] > prices[i])
+                minIndex = i;
+            if (maxIndex <= minIndex)
+            {
+                maxIndex = minIndex;
+                continue;
+            }
+            var val = prices[maxIndex] - prices[minIndex];
+            if (val > 0)
+            {
+                maxIndex = i;
+                minIndex = i;
+                result += val;
+            }
+        }
+        return result;
+    }
 }
