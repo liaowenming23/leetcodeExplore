@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using leetcodeExplore.Problems;
 using Xunit;
 
@@ -52,6 +53,16 @@ public class MediumTest
     public void MaxProfitTest(int[] input, int expected)
     {
         var actual = _target.MaxProfit(input);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(new int[] { 2, 3, 1, 1, 4 }, true)]
+    [InlineData(new int[] { 3, 2, 1, 0, 4 }, false)]
+    [InlineData(new int[] { 0, 1 }, false)]
+    public void CanJumpTest(int[] input, bool expected)
+    {
+        var actual = _target.CanJump(input);
         Assert.Equal(expected, actual);
     }
 }

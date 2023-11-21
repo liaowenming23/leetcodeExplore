@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Windows.Markup;
+
 
 namespace leetcodeExplore.Problems;
 
@@ -133,5 +131,24 @@ public class Medium
             }
         }
         return result;
+    }
+
+    /// <summary>
+    /// 55. Jump Game
+    /// </summary>
+    /// <param name="nums"></param>
+    /// <returns></returns>
+    public bool CanJump(int[] nums)
+    {
+        var current = nums.Length - 1;
+        for (int i = current; i >= 0; i--)
+        {
+            var distance = current - i;
+            if (distance <= nums[i])
+            {
+                current = i;
+            }
+        }
+        return current == 0;
     }
 }

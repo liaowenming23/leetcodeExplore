@@ -508,5 +508,17 @@ public class EasyTest
         Assert.Equal(expected, actual);
     }
 
-  
+    [Theory]
+    [InlineData("abc", "ahbgdc", true)]
+    [InlineData("axc", "ahbgdc", false)]
+    [InlineData("", "ahbgdc", true)]
+    [InlineData("ab", "", false)]
+    [InlineData("ace", "abcde", true)]
+    [InlineData("aec", "abcde", false)]
+    [InlineData("b", "c", false)]
+    public void IsSubsequenceTest(string s, string t, bool expected)
+    {
+        var actual = _target.IsSubsequence(s, t);
+        Assert.Equal(expected, actual);
+    }
 }

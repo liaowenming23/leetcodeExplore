@@ -558,5 +558,27 @@ public class Easy
         return result;
     }
 
-  
+    /// <summary>
+    /// 392. Is Subsequence
+    /// </summary>
+    /// <param name="s"></param>
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public bool IsSubsequence(string s, string t)
+    {
+        if (s.Length == 0)
+            return true;
+        if (t.Length == 0)
+            return false;
+        var p = -1;
+        var e = s.Length - 1;
+        for (int i = 0; i < t.Length; i++)
+        {
+            if (t[i] == s[p + 1])
+                p++;
+
+            if (p == e) return true;
+        }
+        return false;
+    }
 }
