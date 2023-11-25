@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Data;
+using System.Globalization;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 using System.Text;
 using leetcodeExplore.model;
 
@@ -580,5 +584,107 @@ public class Easy
             if (p == e) return true;
         }
         return false;
+    }
+
+
+    /// <summary>
+    /// 383. Ransom Note
+    /// </summary>
+    /// <param name="ransomNote"></param>
+    /// <param name="magazine"></param>
+    /// <returns></returns>
+    public bool CanConstruct(string ransomNote, string magazine)
+    {
+        var map = new Dictionary<char, int>();
+        foreach (var m in magazine)
+        {
+            if (map.ContainsKey(m))
+                map[m] += 1;
+            else
+                map.TryAdd(m, 1);
+        }
+
+        foreach (var r in ransomNote)
+        {
+            if (map.ContainsKey(r))
+            {
+                map[r] -= 1;
+                if (map[r] < 0)
+                    return false;
+            }
+            else return false;
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// 205. Isomorphic Strings
+    /// </summary>
+    /// <param name="s"></param>
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public bool IsIsomorphic(string s, string t)
+    {
+        if (s.Length != t.Length)
+            return false;
+        var map1 = new Dictionary<char, char>();
+        var map2 = new Dictionary<char, char>();
+        for (int i = 0; i < s.Length; i++)
+        {
+            if (map1.TryGetValue(s[i], out var c1))
+            {
+                if (t[i] != c1)
+                    return false;
+            }
+            else
+            {
+                map1.TryAdd(s[i], t[i]);
+            }
+
+            if (map2.TryGetValue(t[i], out var c2))
+            {
+                if (s[i] != c2)
+                    return false;
+            }
+            else
+            {
+                map2.TryAdd(t[i], s[i]);
+            }
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// 228. Summary Ranges
+    /// </summary>
+    /// <param name="nums"></param>
+    /// <returns></returns>
+    public IList<string> SummaryRanges(int[] nums)
+    {
+        var result = new List<string>();
+        if (nums.Length == 0)
+            return result;
+        int l = 0, r = 0;
+        for (int i = 1; i < nums.Length; i++)
+        {
+            if (nums[i - 1] + 1 != nums[i])
+            {
+                if (l == r)
+                    result.Add(nums[l].ToString());
+                else
+                    result.Add($"{nums[l]}->{nums[r]}");
+                l = i;
+                r = i;
+            }
+            else
+            {
+                r = i;
+            }
+        }
+        if (l == r)
+            result.Add(nums[l].ToString());
+        else
+            result.Add($"{nums[l]}->{nums[r]}");
+        return result;
     }
 }

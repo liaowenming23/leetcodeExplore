@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using leetcodeExplore.model;
 using leetcodeExplore.Problems;
 using Xunit;
@@ -520,5 +521,40 @@ public class EasyTest
     {
         var actual = _target.IsSubsequence(s, t);
         Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData("a", "b", false)]
+    [InlineData("aa", "ab", false)]
+    [InlineData("aa", "aab", true)]
+    public void CanConstructTest(string ransomNote, string magazine, bool expected)
+    {
+        var actual = _target.CanConstruct(ransomNote, magazine);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData("egg", "add", true)]
+    [InlineData("foo", "bar", false)]
+    [InlineData("paper", "title", true)]
+    [InlineData("badc", "baba", false)]
+    public void IsIsomorphicTest(string s, string t, bool expected)
+    {
+        var actual = _target.IsIsomorphic(s, t);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(new int[] { 0, 1, 2, 4, 5, 7 }, new string[] { "0->2", "4->5", "7" })]
+    [InlineData(new int[] { 0, 2, 3, 4, 6, 8, 9 }, new string[] { "0", "2->4", "6", "8->9" })]
+    [InlineData(new int[] { -2147483648, -2147483647, 2147483647 }, new string[] { "-2147483648->-2147483647", "2147483647" })]
+    public void SummaryRangesTest(int[] nums, string[] expected)
+    {
+        var actual = _target.SummaryRanges(nums);
+        Assert.Equal(expected.Length, actual.Count);
+        for (int i = 0; i < expected.Length; i++)
+        {
+            Assert.Equal(expected[i], actual[i]);
+        }
     }
 }

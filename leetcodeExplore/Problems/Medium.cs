@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Security;
+using System.Threading.Tasks.Dataflow;
 
 
 namespace leetcodeExplore.Problems;
@@ -150,5 +152,69 @@ public class Medium
             }
         }
         return current == 0;
+    }
+
+    /// <summary>
+    /// 36. Valid Sudoku
+    /// </summary>
+    /// <param name="board"></param>
+    /// <returns></returns>
+    public bool IsValidSudoku(char[][] board)
+    {
+        var set = new HashSet<char>();
+        for (int i = 0; i < 9; i++)
+        {
+            if (!ValidCol(board, i, set) || !ValidRow(board, i, set))
+                return false;
+        }
+        return true;
+    }
+
+    private bool ValidCol(char[][] board, int y, HashSet<char> set)
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            if ((y % 3) == 1 && (i % 3) == 1 && !ValidSquare(board, i, y))
+                return false;
+            if (board[y][i] == '.')
+                continue;
+            if (set.Contains(board[y][i]))
+                return false;
+            set.Add(board[y][i]);
+        }
+        set.Clear();
+        return true;
+    }
+
+    private bool ValidRow(char[][] board, int x, HashSet<char> set)
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            if (board[i][x] == '.')
+                continue;
+            if (set.Contains(board[i][x]))
+                return false;
+            set.Add(board[i][x]);
+        }
+        set.Clear();
+        return true;
+    }
+
+    private bool ValidSquare(char[][] board, int x, int y)
+    {
+        var set = new HashSet<char>();
+        for (int i = x - 1; i < x + 2; i++)
+        {
+            for (int j = y - 1; j < y + 2; j++)
+            {
+                if (board[j][i] == '.')
+                    continue;
+                if (set.Contains(board[j][i]))
+                    return false;
+                set.Add(board[j][i]);
+            }
+        }
+        set.Clear();
+        return true;
     }
 }
