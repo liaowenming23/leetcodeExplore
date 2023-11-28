@@ -1,7 +1,7 @@
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Threading.Tasks.Dataflow;
+using System.Collections;
+using System.Collections.Generic;
 using leetcodeExplore.Problems;
-using Microsoft.VisualBasic;
+using leetcodeExploreTest.TestData;
 using Xunit;
 
 namespace leetcodeExploreTest.Problems;
@@ -134,5 +134,38 @@ public class MediumTest
         Assert.False(actual);
     }
 
-    
+
+    [Theory]
+    [ClassData(typeof(MergeTestData))]
+    public void MergeTest(int[][] intervals, int[][] expected)
+    {
+        var actual = _target.Merge(intervals);
+        Assert.Equal(expected.Length, actual.Length);
+        for (int i = 0; i < actual.Length; i++)
+        {
+            Assert.Equal(expected[i][0], actual[i][0]);
+            Assert.Equal(expected[i][1], actual[i][1]);
+        }
+    }
+
+    [Theory]
+    [InlineData("23", new string[] { "ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf" })]
+    [InlineData("2", new string[] { "a", "b", "c" })]
+    [InlineData("234", new string[] {   "adg","adh","adi",
+                                        "aeg","aeh","aei",
+                                        "afg","afh","afi",
+                                        "bdg","bdh","bdi",
+                                        "beg","beh","bei",
+                                        "bfg","bfh","bfi",
+                                        "cdg","cdh","cdi",
+                                        "ceg","ceh","cei",
+                                        "cfg","cfh","cfi" })]
+    public void LetterCombinationsTest(string digits, string[] expected)
+    {
+        var actual = _target.LetterCombinations(digits);
+        for (int i = 0; i < expected.Length; i++)
+        {
+            Assert.Equal(expected[i], actual[i]);
+        }
+    }
 }

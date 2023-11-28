@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Metadata;
 using System.Security;
 using System.Threading.Tasks.Dataflow;
+using Microsoft.VisualBasic;
 
 
 namespace leetcodeExplore.Problems;
@@ -216,5 +219,82 @@ public class Medium
         }
         set.Clear();
         return true;
+    }
+
+    /// <summary>
+    /// 56. Merge Intervals
+    /// </summary>
+    /// <param name="intervals"></param>
+    /// <returns></returns>
+    public int[][] Merge(int[][] intervals)
+    {
+        if (intervals.Length <= 0)
+            return intervals;
+        Array.Sort(intervals, (l, r) => l[0] - r[0]);
+        var result = new List<int[]>();
+        int current = 0;
+        result.Add(intervals[0]);
+        for (int i = 1; i < intervals.Length; i++)
+        {
+            var cmin = result[current][0];
+            var cmax = result[current][1];
+            var min = intervals[i][0];
+            var max = intervals[i][1];
+
+            if (min <= cmax)
+            {
+                if (cmin > min)
+                    result[current][0] = min;
+                if (cmax < max)
+                    result[current][1] = max;
+            }
+            else
+            {
+                current++;
+                result.Add(intervals[i]);
+            }
+        }
+        return result.ToArray();
+    }
+
+    private static readonly Dictionary<char, char[]> _numbersChars = new()
+    {
+        {'2', new char[]{ 'a','b','c'}},
+        {'3', new char[]{ 'd','e','f'}},
+        {'4', new char[]{ 'g','h','i'}},
+        {'5', new char[]{ 'j','k','l'}},
+        {'6', new char[]{ 'm','n','o'}},
+        {'7', new char[]{ 'p','q','r','s'}},
+        {'8', new char[]{ 't','u','v'}},
+        {'9', new char[]{ 'w','x','y','z'}}
+    };
+
+    /// <summary>
+    /// 17. Letter Combinations of a Phone Number
+    /// </summary>
+    /// <param name="digits"></param>
+    /// <returns></returns>
+    public IList<string> LetterCombinations(string digits)
+    {
+        var result = new List<string>();
+        if (digits.Length == 0)
+            return result;
+        Combination(0, digits.Length - 1, digits, new char[digits.Length], result);
+        return result;
+    }
+
+    public void Combination(int p, int end, string digits, char[] r, List<string> result)
+    {
+        char[] nc = _numbersChars[digits[p]];
+        for (int i = 0; i < nc.Length; i++)
+        {
+            r[p] = nc[i];
+            if (p == end)
+            {
+                result.Add(new string(r));
+            }
+            else Combination(p + 1, end, digits, r, result);
+
+        }
     }
 }
