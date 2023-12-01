@@ -168,4 +168,16 @@ public class MediumTest
             Assert.Equal(expected[i], actual[i]);
         }
     }
+
+    [Theory]
+    [InlineData("/home/", "/home")]
+    [InlineData("/../", "/")]
+    [InlineData("/home//foo/", "/home/foo")]
+    [InlineData("/home///foo/", "/home/foo")]
+    [InlineData("/home/a/../foo/", "/home/foo")]
+    public void SimplifyPathTest(string path, string expected)
+    {
+        var actual = _target.SimplifyPath(path);
+        Assert.Equal(expected, actual);
+    }
 }

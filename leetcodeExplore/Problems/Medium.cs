@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Security;
+using System.Text;
 using System.Threading.Tasks.Dataflow;
 using Microsoft.VisualBasic;
 
@@ -296,5 +297,69 @@ public class Medium
             else Combination(p + 1, end, digits, r, result);
 
         }
+    }
+
+    /// <summary>
+    /// 71. Simplify Path
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    public string SimplifyPath(string path)
+    {
+        if (path.Length <= 1)
+            return "/";
+        var s = new Stack<string>();
+        var fs = path.Split('/');
+        foreach (var f in fs)
+        {
+            if (f.Length == 0 || f == ".")
+                continue;
+            else if (f == "..")
+                s.TryPop(out var _);
+            else s.Push(f);
+        }
+        var sb = new StringBuilder();
+        if (s.Count == 0)
+            return "/";
+        while (s.Count != 0)
+        {
+            var f = s.Pop();
+            sb.Insert(0, $"/{f}");
+        }
+        return sb.ToString();
+    }
+
+    /// <summary>
+    /// 138. Copy List with Random Pointer
+    /// </summary>
+    /// <param name="head"></param>
+    /// <returns></returns>
+    public Node CopyRandomList(Node head)
+    {
+        if (head is null)
+            return head;
+        if (head.next is null && head.random is null)
+            return head;
+
+        var h = new HashSet<Node>();
+        return head;
+    }
+
+    private void DeepCopy(Node node)
+    {
+    }
+}
+
+public class Node
+{
+    public int val;
+    public Node next;
+    public Node random;
+
+    public Node(int _val)
+    {
+        val = _val;
+        next = null;
+        random = null;
     }
 }
