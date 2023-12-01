@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using leetcodeExplore.Problems;
 using leetcodeExploreTest.TestData;
 using Xunit;
@@ -179,5 +177,69 @@ public class MediumTest
     {
         var actual = _target.SimplifyPath(path);
         Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void CopyRandomListTest_1()
+    {
+        var input = new Node(7);
+        input.next = new Node(13);
+        input.next.next = new Node(11);
+        input.next.next.next = new Node(10);
+        input.next.next.next.next = new Node(1);
+        input.next.random = input;
+        input.next.next.random = input.next.next.next.next;
+        input.next.next.next.random = input.next.next;
+        input.next.next.next.next.random = input;
+
+        var actual = _target.CopyRandomList(input);
+        var expected = input;
+        while (expected != null)
+        {
+            Assert.Equal(expected.val, actual.val);
+            if (expected.random != null)
+                Assert.Equal(expected.random.val, actual.random.val);
+            expected = expected.next;
+            actual = actual.next;
+        }
+    }
+
+    [Fact]
+    public void CopyRandomListTest_2()
+    {
+        var input = new Node(1);
+        input.next = new Node(2);
+        input.next.random = input.next;
+
+        var actual = _target.CopyRandomList(input);
+        var expected = input;
+        while (expected != null)
+        {
+            Assert.Equal(expected.val, actual.val);
+            if (expected.random != null)
+                Assert.Equal(expected.random.val, actual.random.val);
+            expected = expected.next;
+            actual = actual.next;
+        }
+    }
+
+    [Fact]
+    public void CopyRandomListTest_3()
+    {
+        var input = new Node(3);
+        input.next = new Node(3);
+        input.next.next = new Node(3);
+        input.next.random = input;
+
+        var actual = _target.CopyRandomList(input);
+        var expected = input;
+        while (expected != null)
+        {
+            Assert.Equal(expected.val, actual.val);
+            if (expected.random != null)
+                Assert.Equal(expected.random.val, actual.random.val);
+            expected = expected.next;
+            actual = actual.next;
+        }
     }
 }

@@ -1,12 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Security;
+using System.Reflection;
 using System.Text;
-using System.Threading.Tasks.Dataflow;
 using Microsoft.VisualBasic;
-
 
 namespace leetcodeExplore.Problems;
 
@@ -336,17 +332,45 @@ public class Medium
     /// <returns></returns>
     public Node CopyRandomList(Node head)
     {
-        if (head is null)
-            return head;
-        if (head.next is null && head.random is null)
-            return head;
-
-        var h = new HashSet<Node>();
-        return head;
+        var d = new Dictionary<int, Node>();
+        Node newNode = null;
+        DeepCopy(head, ref newNode, d);
+        return newNode;
     }
 
-    private void DeepCopy(Node node)
+    private void DeepCopy(Node node, ref Node newNode, Dictionary<int, Node> d)
     {
+        if (node is null)
+            return;
+        if (!d.TryGetValue(node.GetHashCode(), out Node n))
+        {
+            newNode = new Node(node.val);
+            d.TryAdd(node.GetHashCode(), newNode);
+            CopyRandom(node, newNode, d);
+        }
+        else
+        {
+            newNode = n;
+            CopyRandom(node, newNode, d);
+        }
+        if (node.next is not null)
+            DeepCopy(node.next, ref newNode.next, d);
+    }
+
+    private void CopyRandom(Node node, Node newNode, Dictionary<int, Node> d)
+    {
+        if (node.random is not null)
+        {
+            if (!d.TryGetValue(node.random.GetHashCode(), out Node rn))
+            {
+                newNode.random = new Node(node.random.val);
+                d.TryAdd(node.random.GetHashCode(), newNode.random);
+            }
+            else
+            {
+                newNode.random = rn;
+            }
+        }
     }
 }
 
