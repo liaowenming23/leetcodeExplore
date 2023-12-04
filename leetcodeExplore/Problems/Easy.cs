@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using leetcodeExplore.model;
 
@@ -680,6 +681,57 @@ public class Easy
             result.Add(nums[l].ToString());
         else
             result.Add($"{nums[l]}->{nums[r]}");
+        return result;
+    }
+
+    /// <summary>
+    /// Invert Binary Tree
+    /// </summary>
+    /// <param name="root"></param>
+    /// <returns></returns>
+    public TreeNode InvertTree(TreeNode root)
+    {
+        Invert(root);
+        return root;
+
+        void Invert(TreeNode node)
+        {
+            if (node is null && node is null)
+                return;
+            var l = node.left;
+            node.left = node.right;
+            node.right = l;
+            Invert(node.left);
+            Invert(node.right);
+        }
+    }
+
+    /// <summary>
+    /// 637. Average of Levels in Binary Tree
+    /// </summary>
+    /// <param name="root"></param>
+    /// <returns></returns>
+    public IList<double> AverageOfLevels(TreeNode root)
+    {
+        var q = new Queue<TreeNode>();
+        q.Enqueue(root);
+        var result = new List<double>();
+        while (q.Any())
+        {
+            long t = 0;
+            var s = q.Count;
+            for (int i = 0; i < s; i++)
+            {
+                var n = q.Dequeue();
+                t += n.val;
+                if (n.left is not null)
+                    q.Enqueue(n.left);
+                if (n.right is not null)
+                    q.Enqueue(n.right);
+            }
+            var a = t / (double)s;
+            result.Add(a);
+        }
         return result;
     }
 }

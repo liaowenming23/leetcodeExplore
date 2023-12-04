@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
+using System.Reflection;
 using leetcodeExplore.model;
 using leetcodeExplore.Problems;
+using Microsoft.VisualBasic;
 using Xunit;
 
 namespace leetcodeExploreTest.Problems;
@@ -553,6 +552,96 @@ public class EasyTest
         var actual = _target.SummaryRanges(nums);
         Assert.Equal(expected.Length, actual.Count);
         for (int i = 0; i < expected.Length; i++)
+        {
+            Assert.Equal(expected[i], actual[i]);
+        }
+    }
+
+    [Fact]
+    public void InvertTreeTest_1()
+    {
+        var input = new TreeNode(4);
+        input.left = new TreeNode(2);
+        input.right = new TreeNode(7);
+        input.left.left = new TreeNode(1);
+        input.left.right = new TreeNode(3);
+        input.right.left = new TreeNode(6);
+        input.right.right = new TreeNode(9);
+
+        var expected = new TreeNode(4);
+        expected.left = new TreeNode(7);
+        expected.right = new TreeNode(2);
+        expected.left.left = new TreeNode(9);
+        expected.left.right = new TreeNode(6);
+        expected.right.left = new TreeNode(3);
+        expected.right.right = new TreeNode(1);
+        var actual = _target.InvertTree(input);
+        CheckTreeNode(expected, actual);
+    }
+
+    [Fact]
+    public void InvertTreeTest_2()
+    {
+        var input = new TreeNode(2);
+        input.left = new TreeNode(1);
+        input.right = new TreeNode(3);
+
+        var expected = new TreeNode(2);
+        expected.left = new TreeNode(3);
+        expected.right = new TreeNode(1);
+        var actual = _target.InvertTree(input);
+        CheckTreeNode(expected, actual);
+    }
+
+    [Fact]
+    public void InvertTreeTest_3()
+    {
+        TreeNode input = null;
+        TreeNode expected = null;
+        var actual = _target.InvertTree(input);
+        CheckTreeNode(expected, actual);
+    }
+
+    private void CheckTreeNode(TreeNode expected, TreeNode actual)
+    {
+        if (expected is null && actual is null)
+            return;
+        Assert.NotNull(expected);
+        Assert.NotNull(actual);
+        Assert.Equal(expected.val, actual.val);
+        CheckTreeNode(expected.left, actual.left);
+        CheckTreeNode(expected.right, actual.right);
+    }
+
+    [Fact]
+    public void AverageOfLevelsTest_1()
+    {
+        var input = new TreeNode(3);
+        input.left = new TreeNode(9);
+        input.right = new TreeNode(20);
+        input.right.left = new TreeNode(15);
+        input.right.right = new TreeNode(7);
+        var expected = new List<double>() { 3, 14.5, 11 };
+        var actual = _target.AverageOfLevels(input);
+        Assert.Equal(expected.Count, actual.Count);
+        for (int i = 0; i < expected.Count; i++)
+        {
+            Assert.Equal(expected[i], actual[i]);
+        }
+    }
+
+    [Fact]
+    public void AverageOfLevelsTest_2()
+    {
+        var input = new TreeNode(3);
+        input.left = new TreeNode(9);
+        input.right = new TreeNode(20);
+        input.left.left = new TreeNode(15);
+        input.left.right = new TreeNode(7);
+        var expected = new List<double>() { 3, 14.5, 11 };
+        var actual = _target.AverageOfLevels(input);
+        Assert.Equal(expected.Count, actual.Count);
+        for (int i = 0; i < expected.Count; i++)
         {
             Assert.Equal(expected[i], actual[i]);
         }
