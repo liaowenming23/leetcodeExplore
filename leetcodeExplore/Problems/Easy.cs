@@ -735,7 +735,11 @@ public class Easy
         }
         return result;
     }
-
+    /// <summary>
+    /// 69. Sqrt(x)
+    /// </summary>
+    /// <param name="x"></param>
+    /// <returns></returns>
     public int MySqrt(int x)
     {
         if (x == 0 || x == 1)
