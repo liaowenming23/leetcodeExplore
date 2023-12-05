@@ -490,6 +490,7 @@ public class EasyTest
         }
     }
 
+    [Theory]
     [InlineData("ABCABC", "ABC", "ABC")]
     [InlineData("ABABAB", "AB", "AB")]
     [InlineData("LEET", "CODE", "")]
@@ -645,5 +646,15 @@ public class EasyTest
         {
             Assert.Equal(expected[i], actual[i]);
         }
+    }
+
+    [Theory]
+    [InlineData(4, 2)]
+    [InlineData(8, 2)]
+    [InlineData(200, 14)]
+    public void MySqrtTest(int input, int expected)
+    {
+        var actual = _target.MySqrt(input);
+        Assert.Equal(expected, actual);
     }
 }

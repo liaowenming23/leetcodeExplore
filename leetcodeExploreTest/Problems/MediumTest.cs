@@ -242,4 +242,47 @@ public class MediumTest
             actual = actual.next;
         }
     }
+
+    [Fact]
+    public void NumIslandsTest_1()
+    {
+        var grid = new char[][]{
+            new char[]{'1','1','1','1','0'},
+            new char[]{'1','1','0','1','0'},
+            new char[]{'1','1','0','0','0'},
+            new char[]{'0','0','0','0','0'}
+        };
+        var actual = _target.NumIslands(grid);
+        var expected = 1;
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void NumIslandsTest_2()
+    {
+        var grid = new char[][]{
+            new char[]{'1','1','0','0','0'},
+            new char[]{'1','1','0','0','0'},
+            new char[]{'0','0','1','0','0'},
+            new char[]{'0','0','0','1','1'}
+        };
+        var actual = _target.NumIslands(grid);
+        var expected = 3;
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void NumIslandsTest_3()
+    {
+        var grid = new char[][]{
+            new char[]{'1','0','1','1','1'},
+            new char[]{'1','0','1','0','1'},
+            new char[]{'1','1','1','0','1'}
+        };
+        var actual = _target.NumIslands(grid);
+        var expected = 1;
+        Assert.Equal(expected, actual);
+    }
+
+
 }

@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Xml.Schema;
 using Microsoft.VisualBasic;
 
 namespace leetcodeExplore.Problems;
@@ -370,6 +373,53 @@ public class Medium
             {
                 newNode.random = rn;
             }
+        }
+    }
+
+    /// <summary>
+    /// 200. Number of Islands
+    /// </summary>
+    /// <param name="grid"></param>
+    /// <returns></returns>
+    public int NumIslands(char[][] grid)
+    {
+        if (grid.Length == 0 && grid[0].Length == 0)
+            return 0;
+        var maxX = grid[0].Length;
+        var maxY = grid.Length;
+        var result = 0;
+        for (int i = 0; i < maxY; i++)
+        {
+            for (int j = 0; j < maxX; j++)
+            {
+                if (grid[i][j] != '1')
+                    continue;
+                var q = new Queue<(int, int)>();
+                q.Enqueue((i, j));
+                while (q.Any())
+                {
+                    var (y, x) = q.Dequeue();
+                    var up = y - 1;
+                    var down = y + 1;
+                    var left = x - 1;
+                    var right = x + 1;
+                    if (up >= 0 && grid[up][x] == '1')
+                        EnqueueAndReplace(q, up, x);
+                    if (left >= 0 && grid[y][left] == '1')
+                        EnqueueAndReplace(q, y, left);
+                    if (down < maxY && grid[down][x] == '1')
+                        EnqueueAndReplace(q, down, x);
+                    if (right < maxX && grid[y][right] == '1')
+                        EnqueueAndReplace(q, y, right);
+                }
+                result++;
+            }
+        }
+        return result;
+        void EnqueueAndReplace(Queue<(int, int)> qq, int yy, int xx)
+        {
+            grid[yy][xx] = '0';
+            qq.Enqueue((yy, xx));
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using leetcodeExplore.model;
@@ -733,5 +734,22 @@ public class Easy
             result.Add(a);
         }
         return result;
+    }
+
+    public int MySqrt(int x)
+    {
+        if (x == 0 || x == 1)
+            return x;
+
+        return Recursive(1, x);
+        int Recursive(int ll, int rr)
+        {
+            if (ll > rr) return rr;
+            var m = ll + (rr - ll) / 2;
+            var square = (long)m * m;
+            if (square == x) return m;
+            if (square > x) return Recursive(ll, m - 1);
+            else return Recursive(m + 1, rr);
+        }
     }
 }
