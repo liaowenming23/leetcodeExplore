@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Schema;
+using leetcodeExplore.model;
 using Microsoft.VisualBasic;
 
 namespace leetcodeExplore.Problems;
@@ -420,6 +421,42 @@ public class Medium
         {
             grid[yy][xx] = '0';
             qq.Enqueue((yy, xx));
+        }
+    }
+
+    /// <summary>
+    /// 199. Binary Tree Right Side View
+    /// </summary>
+    /// <param name="root"></param>
+    /// <returns></returns>
+    public IList<int> RightSideView(TreeNode root)
+    {
+        var result = new List<int>();
+        if (root is null)
+            return result;
+        var q = new Queue<TreeNode>();
+        q.Enqueue(root);
+        while (q.Any())
+        {
+            var c = q.Count;
+            var r = q.Dequeue();
+            result.Add(r.val);
+            SetNode(r);
+
+            for (int i = 1; i < c; i++)
+            {
+                var n = q.Dequeue();
+                SetNode(n);
+            }
+        }
+        return result;
+
+        void SetNode(TreeNode n)
+        {
+            if (n.right is not null)
+                q.Enqueue(n.right);
+            if (n.left is not null)
+                q.Enqueue(n.left);
         }
     }
 }

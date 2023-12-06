@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+using leetcodeExplore.model;
 using leetcodeExplore.Problems;
 using leetcodeExploreTest.TestData;
 using Xunit;
@@ -284,5 +287,56 @@ public class MediumTest
         Assert.Equal(expected, actual);
     }
 
+    [Fact]
+    public void RightSideViewTest_1()
+    {
+        var input = SetTreeNodeHelper.Init(new int?[] { 1, 2, 3, null, 5, null, 4 });
 
+        var actual = _target.RightSideView(input);
+        var expected = new int[] { 1, 3, 4 };
+        Assert.Equal(expected.Length, actual.Count);
+        for (int i = 0; i < actual.Count; i++)
+        {
+            Assert.Equal(expected[i], actual[i]);
+        }
+    }
+
+    [Fact]
+    public void RightSideViewTest_2()
+    {
+        var input = SetTreeNodeHelper.Init(new int?[] { 1, null, 3 });
+        var actual = _target.RightSideView(input);
+        var expected = new int[] { 1, 3 };
+        Assert.Equal(expected.Length, actual.Count);
+        for (int i = 0; i < actual.Count; i++)
+        {
+            Assert.Equal(expected[i], actual[i]);
+        }
+    }
+
+    [Fact]
+    public void RightSideViewTest_3()
+    {
+        TreeNode input = null;
+        var actual = _target.RightSideView(input);
+        var expected = new int[] { };
+        Assert.Equal(expected.Length, actual.Count);
+        for (int i = 0; i < actual.Count; i++)
+        {
+            Assert.Equal(expected[i], actual[i]);
+        }
+    }
+
+    [Fact]
+    public void RightSideViewTest_4()
+    {
+        var input = SetTreeNodeHelper.Init(new int?[] { 1, 2, 3, 4, null, null, 5, null, 6 });
+        var actual = _target.RightSideView(input);
+        var expected = new int[] { 1, 3, 5, 6 };
+        Assert.Equal(expected.Length, actual.Count);
+        for (int i = 0; i < actual.Count; i++)
+        {
+            Assert.Equal(expected[i], actual[i]);
+        }
+    }
 }
