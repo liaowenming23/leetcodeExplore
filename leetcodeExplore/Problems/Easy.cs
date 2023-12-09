@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using leetcodeExplore.model;
@@ -485,37 +484,7 @@ public class Easy
         return index;
     }
 
-    /// <summary>
-    /// 80. Remove Duplicates from Sorted Array II
-    /// </summary>
-    /// <param name="nums"></param>
-    /// <returns></returns>
-    public int RemoveDuplicates(int[] nums)
-    {
-        if (nums.Length < 3)
-            return nums.Length;
-        var index = 2;
-        for (int i = 2; i < nums.Length; i++)
-        {
-            if (!IsDuplicate(i, i - index))
-            {
-                nums[index] = nums[i];
-                index++;
-            }
-        }
 
-        bool IsDuplicate(int p, int p1)
-        {
-            var p2 = (2 + p1);
-            var p3 = (1 + p1);
-            if (nums[p - p2] != nums[p - p3])
-                return false;
-            if (nums[p - p3] == nums[p])
-                return true;
-            return false;
-        }
-        return index;
-    }
 
     public string GcdOfStrings(string str1, string str2)
     {
@@ -755,5 +724,28 @@ public class Easy
             if (square > x) return Recursive(ll, m - 1);
             else return Recursive(m + 1, rr);
         }
+    }
+
+    /// <summary>
+    /// 26. Remove Duplicates from Sorted Array
+    /// </summary>
+    /// <param name="nums"></param>
+    /// <returns></returns>
+    public int RemoveDuplicates(int[] nums)
+    {
+        if (nums.Length < 2)
+            return 1;
+        var c = 0;
+        for (int i = 1; i < nums.Length; i++)
+        {
+            if (nums[i] == nums[c])
+                continue;
+            else
+            {
+                c++;
+                nums[c] = nums[i];
+            }
+        }
+        return c + 1;
     }
 }

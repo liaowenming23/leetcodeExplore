@@ -476,19 +476,7 @@ public class EasyTest
         Assert.Equal(expected, actual);
     }
 
-    [Theory]
-    [InlineData(new int[] { 1, 1, 1, 2, 2, 3 }, 5, new int[] { 1, 1, 2, 2, 3 })]
-    [InlineData(new int[] { 0, 0, 1, 1, 1, 1, 2, 3, 3 }, 7, new int[] { 0, 0, 1, 1, 2, 3, 3 })]
-    [InlineData(new int[] { 1 }, 1, new int[] { 1 })]
-    public void RemoveDuplicatesTest(int[] input, int expected, int[] expectedNumbers)
-    {
-        var actual = _target.RemoveDuplicates(input);
-        Assert.Equal(expected, actual);
-        for (int i = 0; i < expected; i++)
-        {
-            Assert.Equal(expectedNumbers[i], input[i]);
-        }
-    }
+
 
     [Theory]
     [InlineData("ABCABC", "ABC", "ABC")]
@@ -656,5 +644,18 @@ public class EasyTest
     {
         var actual = _target.MySqrt(input);
         Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(new int[] { 1, 1, 2 }, new int[] { 1, 2 }, 2)]
+    [InlineData(new int[] { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 }, new int[] { 0, 1, 2, 3, 4 }, 5)]
+    public void RemoveDuplicatesTest(int[] nums, int[] expectedNums, int expectedLen)
+    {
+        var actual = _target.RemoveDuplicates(nums);
+        Assert.Equal(expectedLen, actual);
+        for (int i = 0; i < actual; i++)
+        {
+            Assert.Equal(expectedNums[i], nums[i]); ;
+        }
     }
 }

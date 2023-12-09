@@ -543,6 +543,38 @@ public class Medium
         }
         return -1;
     }
+
+    /// <summary>
+    /// 80. Remove Duplicates from Sorted Array II
+    /// </summary>
+    /// <param name="nums"></param>
+    /// <returns></returns>
+    public int RemoveDuplicates(int[] nums)
+    {
+        if (nums.Length < 3)
+            return nums.Length;
+        var index = 2;
+        for (int i = 2; i < nums.Length; i++)
+        {
+            if (!IsDuplicate(i, i - index))
+            {
+                nums[index] = nums[i];
+                index++;
+            }
+        }
+
+        bool IsDuplicate(int p, int p1)
+        {
+            var p2 = (2 + p1);
+            var p3 = (1 + p1);
+            if (nums[p - p2] != nums[p - p3])
+                return false;
+            if (nums[p - p3] == nums[p])
+                return true;
+            return false;
+        }
+        return index;
+    }
 }
 
 public class Node
