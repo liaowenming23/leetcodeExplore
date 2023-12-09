@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using leetcodeExplore.model;
 using leetcodeExplore.Problems;
 using leetcodeExploreTest.TestData;
+using Microsoft.VisualBasic;
 using Xunit;
 
 namespace leetcodeExploreTest.Problems;
@@ -338,5 +338,22 @@ public class MediumTest
         {
             Assert.Equal(expected[i], actual[i]);
         }
+    }
+
+
+    [Theory]
+    [ClassData(typeof(SearchMatrixTestData))]
+    public void SearchMatrixTest(int[][] matrix, int target, bool expected)
+    {
+        var actual = _target.SearchMatrix(matrix, target);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [ClassData(typeof(SnakesAndLaddersTestData))]
+    public void SnakesAndLaddersTest(int[][] board, int expected)
+    {
+        var actual = _target.SnakesAndLadders(board);
+        Assert.Equal(expected, actual);
     }
 }

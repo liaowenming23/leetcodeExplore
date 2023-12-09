@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks.Dataflow;
 using System.Xml.Schema;
 using leetcodeExplore.model;
 using Microsoft.VisualBasic;
@@ -458,6 +459,89 @@ public class Medium
             if (n.left is not null)
                 q.Enqueue(n.left);
         }
+    }
+
+    /// <summary>
+    /// 74. Search a 2D Matrix
+    /// </summary>
+    /// <param name="matrix"></param>
+    /// <param name="target"></param>
+    /// <returns></returns>
+    public bool SearchMatrix(int[][] matrix, int target)
+    {
+        var rows = matrix.Length;
+        var cols = matrix[0].Length;
+        int star = 0, end = rows * cols - 1;
+        return Search(star, end);
+        bool Search(int s, int e)
+        {
+            if (e < s)
+                return false;
+            var dh = (e - s) / 2;
+
+            var h = s + dh;
+            var r = h / cols;
+            var c = h % cols;
+
+            if (matrix[r][c] == target)
+                return true;
+            else if (matrix[r][c] > target)
+                return Search(s, h - 1);
+            else
+                return Search(h + 1, e);
+        }
+    }
+
+    /// <summary>
+    /// 909. Snakes and Ladders
+    /// </summary>
+    /// <param name="board"></param>
+    /// <returns></returns>
+    public int SnakesAndLadders(int[][] board)
+    {
+        var sr = board.Length - 1;
+        var n = board.Length;
+        var q = new Queue<int>();
+        var g = n * n - 1;
+        var result = 0;
+        q.Enqueue(0);
+        while (q.Any())
+        {
+            var total = q.Count;
+            result++;
+            for (int i = 0; i < total; i++)
+            {
+                var curr = q.Dequeue();
+                for (int j = curr + 1; j <= curr + 6; j++)
+                {
+                    if (j == g)
+                        return result;
+                    var rr = j / n;
+                    var r = sr - rr;
+                    int c;
+
+                    if (rr % 2 == 0)
+                        c = j % n;
+                    else
+                        c = sr - (j % n);
+
+                    if (board[r][c] > 0)
+                    {
+                        var mov = board[r][c] - 1;
+                        if (mov == g)
+                            return result;
+                        q.Enqueue(mov);
+                        board[r][c] = -2;
+                    }
+                    else if (board[r][c] == -1)
+                    {
+                        q.Enqueue(j);
+                        board[r][c] = -2;
+                    }
+                }
+            }
+        }
+        return -1;
     }
 }
 
