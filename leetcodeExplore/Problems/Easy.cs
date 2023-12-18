@@ -748,4 +748,29 @@ public class Easy
         }
         return c + 1;
     }
+
+    /// <summary>
+    /// 1. Two Sum
+    /// </summary>
+    /// <param name="nums"></param>
+    /// <param name="target"></param>
+    /// <returns></returns>
+    public int[] TwoSum(int[] nums, int target)
+    {
+        var dict = new Dictionary<int, int>();
+        for (int i = 0; i < nums.Length; i++)
+        {
+            var r = target - nums[i];
+            if (dict.TryGetValue(r, out var l))
+            {
+                return new int[] { l, i };
+            }
+            else
+            {
+                dict.TryAdd(nums[i], i);
+            }
+        }
+        return new int[] { -1, -1 };
+    }
+
 }

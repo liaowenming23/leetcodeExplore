@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks.Dataflow;
+using System.Windows.Markup;
 using System.Xml.Schema;
 using leetcodeExplore.model;
 using Microsoft.VisualBasic;
@@ -574,6 +575,85 @@ public class Medium
             return false;
         }
         return index;
+    }
+
+    /// <summary>
+    /// 11. Container With Most Water
+    /// </summary>
+    /// <param name="height"></param>
+    /// <returns></returns>
+    public int MaxArea(int[] height)
+    {
+        int l = 0, r = height.Length - 1;
+        var result = 0;
+        while (l < r)
+        {
+            var lh = height[l];
+            var rh = height[r];
+            int cal;
+            if (lh < rh)
+            {
+                cal = (r - l) * lh;
+                l++;
+            }
+            else
+            {
+                cal = (r - l) * rh;
+                r--;
+            }
+            if (cal > result)
+                result = cal;
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// 15. 3Sum
+    /// </summary>
+    /// <param name="nums"></param>
+    /// <returns></returns>
+    public IList<IList<int>> ThreeSum(int[] nums)
+    {
+        var result = new List<IList<int>>();
+        Array.Sort(nums);
+        for (int i = 0; i < nums.Length - 1; i++)
+        {
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
+            int l = i + 1, r = nums.Length - 1;
+            while (l < r)
+            {
+                var sum = nums[i] + nums[l] + nums[r];
+                if (sum > 0)
+                    r--;
+                else if (sum < 0)
+                    l++;
+                else
+                {
+                    result.Add(new List<int> { nums[i], nums[l], nums[r] });
+                    l++;
+                    while (l < nums.Length && nums[l] == nums[l - 1])
+                        l++;
+                }
+
+            }
+        }
+        return result;
+    }
+
+    public int HIndex(int[] citations)
+    {
+        var result = 0;
+        Array.Sort(citations);
+        var p = citations.Length;
+        for (int i = p - 1; i >= 0; i--)
+        {
+            var d = p - i;
+            if (citations[i] >= d)
+                result = d;
+        }
+        return result;
     }
 }
 

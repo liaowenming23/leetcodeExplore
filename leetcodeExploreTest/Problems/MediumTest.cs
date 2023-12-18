@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using leetcodeExplore.model;
 using leetcodeExplore.Problems;
 using leetcodeExploreTest.TestData;
@@ -367,5 +368,39 @@ public class MediumTest
         {
             Assert.Equal(expectedNumbers[i], input[i]);
         }
+    }
+
+    [Theory]
+    [InlineData(new int[] { 1, 8, 6, 2, 5, 4, 8, 3, 7 }, 49)]
+    [InlineData(new int[] { 1, 1 }, 1)]
+    public void MaxAreaTest(int[] height, int expected)
+    {
+        var actual = _target.MaxArea(height);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [ClassData(typeof(ThreeSumTestData))]
+    public void ThreeSumTest_1(int[] nums, List<List<int>> expected)
+    {
+        var actual = _target.ThreeSum(nums);
+        Assert.Equal(expected.Count, actual.Count);
+        for (int i = 0; i < expected.Count; i++)
+        {
+            for (int j = 0; j < expected[i].Count; j++)
+            {
+                Assert.Equal(expected[i][j], actual[i][j]);
+            }
+        }
+    }
+
+    [Theory]
+    [InlineData(new int[] { 3, 0, 6, 1, 5 }, 3)]
+    [InlineData(new int[] { 1, 3, 1 }, 1)]
+    [InlineData(new int[] { 100 }, 1)]
+    public void HIndexTest(int[] citations, int expected)
+    {
+        var actual = _target.HIndex(citations);
+        Assert.Equal(expected, actual);
     }
 }

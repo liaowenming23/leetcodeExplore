@@ -658,4 +658,12 @@ public class EasyTest
             Assert.Equal(expectedNums[i], nums[i]); ;
         }
     }
+
+    [Theory]
+    [InlineData(new int[] { 3, 2, 4 }, 6, new int[] { 1, 2 })]
+    public void TwoSum(int[] nums, int target, int[] expected)
+    {
+        var actual = _target.TwoSum(nums, target);
+        Assert.Equal(expected, actual);
+    }
 }
