@@ -642,6 +642,11 @@ public class Medium
         return result;
     }
 
+    /// <summary>
+    /// 274. H-Index
+    /// </summary>
+    /// <param name="citations"></param>
+    /// <returns></returns>
     public int HIndex(int[] citations)
     {
         var result = 0;
@@ -655,6 +660,7 @@ public class Medium
         }
         return result;
     }
+
 }
 
 public class Node
@@ -669,4 +675,21 @@ public class Node
         next = null;
         random = null;
     }
+}
+
+
+public class RandomizedSet
+{
+    private HashSet<int> _hashSet;
+    private Random _r;
+    public RandomizedSet()
+    {
+        _hashSet = new HashSet<int>();
+        _r = new Random();
+    }
+
+    public bool Insert(int val) => _hashSet.Add(val);
+    public bool Remove(int val) => _hashSet.Remove(val);
+    public int GetRandom() => _hashSet.ElementAt(_r.Next(_hashSet.Count));
+
 }
