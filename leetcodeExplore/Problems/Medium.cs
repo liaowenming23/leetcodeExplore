@@ -693,3 +693,121 @@ public class RandomizedSet
     public int GetRandom() => _hashSet.ElementAt(_r.Next(_hashSet.Count));
 
 }
+
+public class Trie
+{
+    private HashSet<string> _words;
+
+    public Trie()
+    {
+        _words = new();
+    }
+
+    public void Insert(string word)
+    {
+        if (_words.Contains(word))
+            return;
+        _words.Add(word);
+    }
+
+    public bool Search(string word)
+    {
+        return _words.TryGetValue(word, out var _);
+    }
+
+    public bool StartsWith(string prefix)
+    {
+        var l = prefix.Length - 1;
+        foreach (var w in _words)
+        {
+            if (w.Length < l + 1)
+                continue;
+            var i = 0;
+            while (i < l)
+            {
+                if (prefix[i] != w[i])
+                    break;
+                i++;
+            }
+            if (i != l)
+                continue;
+            if (prefix[i] == w[i])
+                return true;
+        }
+        return false;
+    }
+}
+
+public class Trie1
+{
+
+    TrieNode root;
+    HashSet<string> strings;
+
+    public Trie1()
+    {
+        root = new('R');
+        strings = new();
+    }
+
+    public void Insert(string word)
+    {
+
+        strings.Add(word);
+        TrieNode node = root;
+        int i = 0;
+        while (i < word.Length)
+        {
+            if (node.AlphaDict.ContainsKey(word[i]))
+            {
+                // Already exists
+            }
+            else
+            {
+                node.AlphaDict[word[i]] = new TrieNode(word[i]);
+            }
+            node = node.AlphaDict[word[i]];
+            i++;
+        }
+    }
+
+    public bool Search(string word)
+    {
+        return strings.Contains(word);
+
+    }
+
+    public bool StartsWith(string prefix)
+    {
+        int i = 0;
+        TrieNode node = root;
+        while (i < prefix.Length)
+        {
+            if (node.AlphaDict.TryGetValue(prefix[i], out node))
+            {
+                // Continue
+            }
+            else
+            {
+                return false;
+            }
+
+            i++;
+        }
+        return true;
+    }
+}
+
+public class TrieNode
+{
+    public Dictionary<char, TrieNode> AlphaDict { get; set; }
+
+    public char Character { get; set; }
+
+    public TrieNode(char c)
+    {
+        this.Character = c;
+        this.AlphaDict = new();
+    }
+}
+

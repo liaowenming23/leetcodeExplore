@@ -403,4 +403,59 @@ public class MediumTest
         var actual = _target.HIndex(citations);
         Assert.Equal(expected, actual);
     }
+
+    [Fact]
+    public void TrieTest_1()
+    {
+        var t = new Trie();
+        t.Insert("apple");
+        t.Insert("applepen");
+        Assert.True(t.Search("apple"));
+        Assert.False(t.StartsWith("appe"));
+        Assert.False(t.Search("app"));
+        Assert.True(t.StartsWith("app"));
+        t.Insert("app");
+        Assert.True(t.Search("app"));
+    }
+
+    [Fact]
+    public void TrieTest_2()
+    {
+        var t = new Trie();
+        t.Insert("app");
+        t.Insert("apple");
+        t.Insert("beer");
+        t.Insert("add");
+        t.Insert("jam");
+        t.Insert("rental");
+        Assert.False(t.Search("apps"));
+        Assert.True(t.Search("app"));
+        Assert.False(t.Search("ad"));
+        Assert.False(t.Search("applepie"));
+        Assert.False(t.Search("rest"));
+        Assert.False(t.Search("jan"));
+        Assert.False(t.Search("rent"));
+        Assert.True(t.Search("beer"));
+        Assert.True(t.Search("jam"));
+
+        Assert.False(t.StartsWith("apps"));
+        Assert.True(t.StartsWith("app"));
+        Assert.True(t.StartsWith("ad"));
+        Assert.False(t.StartsWith("applepie"));
+        Assert.False(t.StartsWith("rest"));
+        Assert.False(t.StartsWith("jan"));
+        Assert.True(t.StartsWith("rent"));
+        Assert.True(t.StartsWith("beer"));
+        Assert.True(t.StartsWith("jam"));
+    }
+
+    [Fact]
+    public void Trie1Test()
+    {
+        var t = new Trie1();
+        t.Insert("aa");
+        t.Insert("ab");
+        Assert.True(t.StartsWith("aa"));
+        Assert.True(t.StartsWith("ab"));
+    }
 }
