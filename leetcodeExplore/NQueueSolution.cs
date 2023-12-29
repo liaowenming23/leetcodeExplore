@@ -20,9 +20,10 @@ namespace leetcodeExplore
 
         public void RunPuzzle(List<int[]> sol, int y)
         {
+            // because x position only run n times;
             for (int x = 0; x < _maxCol; x++)
             {
-                if (Check(_tempSol, y, x))
+                if (BackCheck(_tempSol, y, x))
                 {
                     _tempSol[y] = x;
                     if (y == _maxRow - 1)
@@ -37,13 +38,15 @@ namespace leetcodeExplore
             }
         }
 
-        public bool Check(int[] sol, int y, int x)
+        public static bool BackCheck(int[] sol, int y, int x)
         {
+            // y was already run position
             for (int i = 0; i < y; i++)
             {
                 var x1 = sol[i];
                 var y1 = i;
-                if (x1 == x)
+                // x1 and y1 was y = 1 queen position
+                if (x1 == x) // didn't same column
                     return false;
                 else if ((x - x1) == (y - y1)) // m = 1
                     return false;

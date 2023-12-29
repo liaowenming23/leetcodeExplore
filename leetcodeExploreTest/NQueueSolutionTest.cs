@@ -1,14 +1,15 @@
 using leetcodeExplore;
+using Xunit;
 
-namespace leetcodeExploreTest
+namespace leetcodeExploreTest;
+
+public class NQueueSolutionTest
 {
-    public class NQueueSolutionTest
+    [Fact]
+    public void SolTest()
     {
-        public void SolTest()
-        {
-            var queen = 4;
-            var target = new NQueueSolution();
-            var actual = target.Sol(queen);
-        }
+        var queen = 4;
+        var target = new NQueueSolution();
+        var actual = target.Sol(queen);
     }
 }
