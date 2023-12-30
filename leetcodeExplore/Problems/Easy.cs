@@ -773,4 +773,8 @@ public class Easy
         return new int[] { -1, -1 };
     }
 
+    public bool CanWinNim(int n)
+    {
+        return n % 4 != 0;
+    }
 }

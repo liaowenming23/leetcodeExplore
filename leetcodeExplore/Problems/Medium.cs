@@ -1,14 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks.Dataflow;
-using System.Windows.Markup;
-using System.Xml.Schema;
 using leetcodeExplore.model;
-using Microsoft.VisualBasic;
 
 namespace leetcodeExplore.Problems;
 
@@ -661,6 +655,32 @@ public class Medium
         return result;
     }
 
+    /// <summary>
+    /// 120. Triangle
+    /// </summary>
+    /// <param name="triangle"></param>
+    /// <returns></returns>
+    public int MinimumTotal(IList<IList<int>> triangle)
+    {
+        if (triangle.Count == 0)
+            return 0;
+        if (triangle.Count == 1)
+            return triangle[0][0];
+        var len = triangle.Count - 2;
+        MinRecursive(triangle, 0, len);
+        return triangle[0][0];
+    }
+
+    private void MinRecursive(IList<IList<int>> triangle, int y, int len)
+    {
+        if (y < len)
+            MinRecursive(triangle, y + 1, len);
+        var nx = y + 1;
+        for (int x = 0; x < nx; x++)
+        {
+            triangle[y][x] += Math.Min(triangle[nx][x], triangle[nx][x + 1]);
+        }
+    }
 }
 
 public class Node

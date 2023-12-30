@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using leetcodeExplore.model;
 using leetcodeExplore.Problems;
 using leetcodeExploreTest.TestData;
@@ -457,5 +458,47 @@ public class MediumTest
         t.Insert("ab");
         Assert.True(t.StartsWith("aa"));
         Assert.True(t.StartsWith("ab"));
+    }
+
+    [Fact]
+    public void MinimumTotalTest_1()
+    {
+        var input = new List<IList<int>>
+        {
+            new List<int>(){2},
+            new List<int>(){3,4},
+            new List<int>(){6,5,7},
+            new List<int>(){4,1,8,3}
+        };
+
+        var actual = _target.MinimumTotal(input);
+        var expected = 11;
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void MinimumTotalTest_2()
+    {
+        var input = new List<IList<int>>
+        {
+            new List<int>(){-10}
+        };
+
+        var actual = _target.MinimumTotal(input);
+        var expected = -10;
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void MinimumTotalTest_3()
+    {
+        var input = new List<IList<int>>
+        {
+            new List<int>(){-10},
+            new List<int>(){1, 2}
+        };
+        var actual = _target.MinimumTotal(input);
+        var expected = -9;
+        Assert.Equal(expected, actual);
     }
 }

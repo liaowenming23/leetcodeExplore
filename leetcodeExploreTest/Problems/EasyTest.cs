@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using leetcodeExplore.model;
@@ -664,6 +665,16 @@ public class EasyTest
     public void TwoSum(int[] nums, int target, int[] expected)
     {
         var actual = _target.TwoSum(nums, target);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(5, true)]
+    [InlineData(4, false)]
+    [InlineData(3, true)]
+    public void CanWinNimTest(int n, bool expected)
+    {
+        var actual = _target.CanWinNim(n);
         Assert.Equal(expected, actual);
     }
 }
