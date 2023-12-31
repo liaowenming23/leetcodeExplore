@@ -677,4 +677,13 @@ public class EasyTest
         var actual = _target.CanWinNim(n);
         Assert.Equal(expected, actual);
     }
+
+    [Theory]
+    [InlineData("11", "1", "100")]
+    [InlineData("1010", "1011", "10101")]
+    public void AddBinaryTest(string a, string b, string expected)
+    {
+        var actual = _target.AddBinary(a, b);
+        Assert.Equal(expected, actual);
+    }
 }

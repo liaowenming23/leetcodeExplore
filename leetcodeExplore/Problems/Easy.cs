@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using leetcodeExplore.model;
 
@@ -776,5 +777,83 @@ public class Easy
     public bool CanWinNim(int n)
     {
         return n % 4 != 0;
+    }
+
+    public string AddBinary(string a, string b)
+    {
+        if (a.Length == 0)
+            return b;
+        if (b.Length == 0)
+            return a;
+        var min = Math.Min(a.Length, b.Length);
+        var maxS = a.Length == min ? b : a;
+        var sb = new StringBuilder();
+        var carry = '0';
+        for (int i = 1; i <= min; i++)
+        {
+            var ac = a[^i];
+            var bc = b[^i];
+            if (ac == '1' && bc == '1')
+            {
+                if (carry == '1')
+                {
+                    carry = '1';
+                    sb.Insert(0, '1');
+                }
+                else
+                {
+                    carry = '1';
+                    sb.Insert(0, '0');
+                }
+            }
+            else if (ac == '0' && bc == '0')
+            {
+
+                if (carry == '0')
+                {
+                    carry = '0';
+                    sb.Insert(0, '0');
+                }
+                else
+                {
+                    carry = '0';
+                    sb.Insert(0, '1');
+                }
+            }
+            else
+            {
+                if (carry == '0')
+                {
+                    carry = '0';
+                    sb.Insert(0, '1');
+                }
+                else
+                {
+                    carry = '1';
+                    sb.Insert(0, '0');
+                }
+            }
+        }
+        for (int i = min + 1; i <= maxS.Length; i++)
+        {
+            if (maxS[^i] == '1' && carry == '1')
+            {
+                carry = '1';
+                sb.Insert(0, '0');
+            }
+            else if (maxS[^i] == '0' && carry == '0')
+            {
+                carry = '0';
+                sb.Insert(0, '0');
+            }
+            else
+            {
+                carry = '0';
+                sb.Insert(0, '1');
+            }
+        }
+        if (carry == '1')
+            sb.Insert(0, '1');
+        return sb.ToString();
     }
 }
