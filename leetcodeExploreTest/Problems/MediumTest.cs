@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using leetcodeExplore.model;
 using leetcodeExplore.Problems;
 using leetcodeExploreTest.TestData;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using Xunit;
 
 namespace leetcodeExploreTest.Problems;
@@ -500,5 +501,49 @@ public class MediumTest
         var actual = _target.MinimumTotal(input);
         var expected = -9;
         Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void SortListTest_1()
+    {
+        var h = new ListNode(4);
+        h.next = new ListNode(2);
+        h.next.next = new ListNode(1);
+        h.next.next.next = new ListNode(3);
+
+        var expected = new ListNode(1);
+        expected.next = new ListNode(2);
+        expected.next.next = new ListNode(3);
+        expected.next.next.next = new ListNode(4);
+        var actual = _target.SortList(h);
+        while (actual != null)
+        {
+            Assert.Equal(expected.val, actual.val);
+            actual = actual.next;
+            expected = expected.next;
+        }
+    }
+
+    [Fact]
+    public void SortListTest_2()
+    {
+        var h = new ListNode(-1);
+        h.next = new ListNode(5);
+        h.next.next = new ListNode(3);
+        h.next.next.next = new ListNode(4);
+        h.next.next.next.next = new ListNode(0);
+
+        var expected = new ListNode(-1);
+        expected.next = new ListNode(0);
+        expected.next.next = new ListNode(3);
+        expected.next.next.next = new ListNode(4);
+        expected.next.next.next.next = new ListNode(5);
+        var actual = _target.SortList(h);
+        while (actual != null)
+        {
+            Assert.Equal(expected.val, actual.val);
+            actual = actual.next;
+            expected = expected.next;
+        }
     }
 }

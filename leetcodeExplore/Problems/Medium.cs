@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using leetcodeExplore.model;
@@ -681,7 +682,61 @@ public class Medium
             triangle[y][x] += Math.Min(triangle[nx][x], triangle[nx][x + 1]);
         }
     }
+
+    public ListNode SortList(ListNode head)
+    {
+        if (head is null || head.next is null)
+            return head;
+        var left = head;
+        var right = GetMid(head);
+        var t = right.next;
+        right.next = null;
+        right = t;
+
+        left = SortList(left);
+        right = SortList(right);
+        return MergeSortedList(left, right);
+    }
+
+    public ListNode GetMid(ListNode head)
+    {
+        var slow = head;
+        var fast = head.next;
+        while (fast is not null && fast.next is not null)
+        {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+
+    public ListNode MergeSortedList(ListNode left, ListNode right)
+    {
+        var m = new ListNode();
+        var tail = m;
+        while (left is not null && right is not null)
+        {
+            if (left.val <= right.val)
+            {
+                tail.next = left;
+                left = left.next;
+            }
+            else
+            {
+                tail.next = right;
+                right = right.next;
+            }
+            tail = tail.next;
+        }
+
+        if (left is null)
+            tail.next = right;
+        if (right is null)
+            tail.next = left;
+        return m.next;
+    }
 }
+
 
 public class Node
 {
