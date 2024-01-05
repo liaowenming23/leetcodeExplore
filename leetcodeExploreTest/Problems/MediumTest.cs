@@ -546,4 +546,14 @@ public class MediumTest
             expected = expected.next;
         }
     }
+
+    [Theory]
+    [InlineData(new int[] { 3, 2, 1, 5, 6, 4 }, 2, 5)]
+    [InlineData(new int[] { 3, 2, 3, 1, 2, 4, 5, 5, 6 }, 4, 4)]
+    [InlineData(new int[] { -1, 2, 0 }, 2, 0)]
+    public void FindKthLargestTest(int[] nums, int k, int expected)
+    {
+        var actual = _target.FindKthLargest(nums, k);
+        Assert.Equal(expected, actual);
+    }
 }

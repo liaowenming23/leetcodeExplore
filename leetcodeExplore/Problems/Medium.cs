@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using leetcodeExplore.model;
 
@@ -735,6 +737,24 @@ public class Medium
             tail.next = left;
         return m.next;
     }
+
+    public int FindKthLargest(int[] nums, int k)
+    {
+        var mh = new MinHeap(k);
+        for (int i = 0; i < k; i++)
+        {
+            mh.Insert(nums[i]);
+        }
+        for (int i = k; i < nums.Length; i++)
+        {
+            if (mh.Peek() < nums[i])
+            {
+                _ = mh.Pop();
+                mh.Insert(nums[i]);
+            }
+        }
+        return mh.Peek();
+    }
 }
 
 
@@ -886,3 +906,108 @@ public class TrieNode
     }
 }
 
+public class MinHeap
+{
+    private readonly int[] _heap;
+    private int _index;
+
+    public MinHeap(int len)
+    {
+        _heap = new int[len];
+        _index = 0;
+    }
+
+    public void Insert(int val)
+    {
+        _heap[_index] = val;
+        Up();
+        _index++;
+    }
+
+    public int Peek()
+    {
+        return _heap[0];
+    }
+
+    public int Pop()
+    {
+        var val = _heap[0];
+        _heap[0] = _heap[_index - 1];
+        _index--;
+        Down();
+        return val;
+    }
+
+    public void Up()
+    {
+        var i = _index;
+        while (i > 0)
+        {
+            var parentIndex = GetParentIndex(i);
+            if (_heap[i] > _heap[parentIndex])
+                return;
+            Swap(i, parentIndex);
+            i = parentIndex;
+        }
+    }
+
+    public void Down()
+    {
+        var i = 0;
+        while ((HasLeftChild(i) && _heap[i] > GetLeftChild(i)) || (HasRightChild(i) && _heap[i] > GetRightChild(i)))
+        {
+            int smallIndex = GetLeftChildIndex(i);
+            if (HasRightChild(i) && GetRightChild(i) < _heap[smallIndex])
+                smallIndex = GetRightChildIndex(i);
+            Swap(i, smallIndex);
+            i = smallIndex;
+        }
+    }
+
+
+    public void Down1()
+    {
+        var i = 0;
+        var childIndex = 2 * i;
+        var leftChildIndex = childIndex + 1;
+        var rightChildIndex = childIndex + 2;
+        while ((leftChildIndex < _index && _heap[i] > _heap[leftChildIndex]) || (rightChildIndex < _index && _heap[i] > _heap[rightChildIndex]))
+        {
+            int smallIndex = leftChildIndex;
+            if (rightChildIndex < _index && _heap[rightChildIndex] < _heap[smallIndex])
+                smallIndex = rightChildIndex;
+            Swap(i, smallIndex);
+            i = smallIndex;
+            childIndex = 2 * i;
+            leftChildIndex = childIndex + 1;
+            rightChildIndex = childIndex + 2;
+        }
+    }
+
+    private static int GetLeftChildIndex(int index) { return 2 * index + 1; }
+    private static int GetRightChildIndex(int index) { return 2 * index + 2; }
+
+    private bool HasLeftChild(int index) { return GetLeftChildIndex(index) < _index; }
+    private bool HasRightChild(int index) { return GetRightChildIndex(index) < _index; }
+
+    private int GetLeftChild(int index) { return _heap[GetLeftChildIndex(index)]; }
+    private int GetRightChild(int index) { return _heap[GetRightChildIndex(index)]; }
+
+    public static int GetParentIndex(int index) { return (index - 1) / 2; }
+
+
+    private void BubbleUp()
+    {
+        int index = _index - 1;
+        while (index > 0 && _heap[index] < _heap[GetParentIndex(index)])
+        {
+            Swap(index, GetParentIndex(index));
+            index = GetParentIndex(index);
+        }
+    }
+
+    public void Swap(int up, int down)
+    {
+        (_heap[down], _heap[up]) = (_heap[up], _heap[down]);
+    }
+}
