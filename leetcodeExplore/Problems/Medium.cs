@@ -755,6 +755,70 @@ public class Medium
         }
         return mh.Peek();
     }
+
+    public int MinPathSum(int[][] grid)
+    {
+        var yl = grid.Length;
+        var xl = grid[0].Length;
+        var result = new int[yl, xl];
+        result[0, 0] = grid[0][0];
+        for (int i = 1; i < yl; i++)
+            result[i, 0] = result[i - 1, 0] + grid[i][0];
+        for (int i = 1; i < xl; i++)
+            result[0, i] = result[0, i - 1] + grid[0][i];
+        for (int i = 1; i < yl; i++)
+        {
+            for (int j = 1; j < xl; j++)
+            {
+                result[i, j] = grid[i][j] + Math.Min(result[i - 1, j], result[i, j - 1]);
+            }
+        }
+        return result[yl - 1, xl - 1];
+        // return NextPath(grid, 0, 0);
+    }
+
+    public int NextPath(int[][] grid, int y, int x)
+    {
+        var maxY = grid.Length - 1;
+        var maxX = grid[0].Length - 1;
+        var current = grid[y][x];
+        if (y == maxY && x == maxX)
+            return current;
+        if (y == maxY)
+        {
+            return current + NextPath(grid, y, x + 1);
+        }
+        else if (x == maxX)
+        {
+            return current + NextPath(grid, y + 1, x);
+        }
+
+        var right = NextPath(grid, y + 1, x);
+        var down = NextPath(grid, y, x + 1);
+        if (right < down)
+            return current + right;
+        else
+            return current + down;
+    }
+
+    /// <summary>
+    /// 198. House Robber
+    /// </summary>
+    /// <param name="nums"></param>
+    /// <returns></returns>
+    public int Rob(int[] nums)
+    {
+        var firstRob = 0;
+        var secondRob = 0;
+        // [firstRob, secondRob, n, n + 1]
+        for (int i = 0; i < nums.Length; i++)
+        {
+            var t = Math.Max(nums[i] + firstRob, secondRob);
+            firstRob = secondRob;
+            secondRob = t;
+        }
+        return secondRob;
+    }
 }
 
 
